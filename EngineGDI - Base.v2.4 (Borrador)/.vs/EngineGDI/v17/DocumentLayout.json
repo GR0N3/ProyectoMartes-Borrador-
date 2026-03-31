@@ -1,0 +1,86 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\p763\\Desktop\\EngineGDI - Base.v2.4\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|c:\\users\\p763\\desktop\\enginegdi - base.v2.4\\enginegdi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|solutionrelative:enginegdi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|C:\\Users\\p763\\Desktop\\EngineGDI - Base.v2.4\\enginegdi\\engine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|solutionrelative:enginegdi\\engine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|c:\\users\\p763\\desktop\\enginegdi - base.v2.4\\enginegdi\\test.png||{58961B49-13E0-48C0-9258-13CBC4D40279}",
+      "RelativeMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|solutionrelative:enginegdi\\test.png||{58961B49-13E0-48C0-9258-13CBC4D40279}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{053B33A1-F3A1-493E-8D27-47579DDD46B6}|UnitTestProject1\\UnitTestProject1.csproj|C:\\Users\\p763\\Desktop\\EngineGDI - Base.v2.4\\unittestproject1\\testgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{053B33A1-F3A1-493E-8D27-47579DDD46B6}|UnitTestProject1\\UnitTestProject1.csproj|solutionrelative:unittestproject1\\testgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "test.png",
+              "DocumentMoniker": "C:\\Users\\p763\\Desktop\\EngineGDI - Base.v2.4\\EngineGDI\\test.png",
+              "RelativeDocumentMoniker": "EngineGDI\\test.png",
+              "ToolTip": "C:\\Users\\p763\\Desktop\\EngineGDI - Base.v2.4\\EngineGDI\\test.png",
+              "RelativeToolTip": "EngineGDI\\test.png",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-03-10T23:12:52.514Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Engine.cs",
+              "DocumentMoniker": "C:\\Users\\p763\\Desktop\\EngineGDI - Base.v2.4\\EngineGDI\\Engine.cs",
+              "RelativeDocumentMoniker": "EngineGDI\\Engine.cs",
+              "ToolTip": "C:\\Users\\p763\\Desktop\\EngineGDI - Base.v2.4\\EngineGDI\\Engine.cs",
+              "RelativeToolTip": "EngineGDI\\Engine.cs",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAIwHcAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T22:41:24.285Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TestGame.cs",
+              "DocumentMoniker": "C:\\Users\\p763\\Desktop\\EngineGDI - Base.v2.4\\UnitTestProject1\\TestGame.cs",
+              "RelativeDocumentMoniker": "UnitTestProject1\\TestGame.cs",
+              "ToolTip": "C:\\Users\\p763\\Desktop\\EngineGDI - Base.v2.4\\UnitTestProject1\\TestGame.cs",
+              "RelativeToolTip": "UnitTestProject1\\TestGame.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-05T00:12:35.235Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\p763\\Desktop\\EngineGDI - Base.v2.4\\EngineGDI\\Program.cs",
+              "RelativeDocumentMoniker": "EngineGDI\\Program.cs",
+              "ToolTip": "C:\\Users\\p763\\Desktop\\EngineGDI - Base.v2.4\\EngineGDI\\Program.cs",
+              "RelativeToolTip": "EngineGDI\\Program.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAADwvyEAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-30T21:15:08.463Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
