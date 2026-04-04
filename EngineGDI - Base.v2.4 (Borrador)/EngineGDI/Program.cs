@@ -19,8 +19,9 @@ namespace EngineGDI
 
         public static int SCREEN_WIDTH = 1024;
         public static int SCREEN_HEIGHT = 780;
-        private static float movY = 0f;
-        private static float velY = 25.5f;
+        private static player player;
+        private static Asteroid asteroid;
+
         /// <summary>
         /// Punto de entrada principal para la aplicación.
         /// </summary>
@@ -29,6 +30,10 @@ namespace EngineGDI
         {
 
             Engine.Initialize("IERVA ENGINE", SCREEN_WIDTH, SCREEN_HEIGHT, false);
+
+            player = new player("Textures/Player/Player.png", 20, SCREEN_HEIGHT / 2, 200f);
+
+            asteroid = new Asteroid("Textures/Objetos/Asteroide/Asteroid_idle.png", 800, 100, 100);
 
             startTime = DateTime.Now;
 
@@ -64,27 +69,20 @@ namespace EngineGDI
             // aqui se pueden agregar controles de input
             void Input()
             {
-                if (Engine.IsKeyDown(Keys.Up) || Engine.IsKeyDown(Keys.W))
-                {
-                    movY -= 5f + velY * deltaTime;
-                }
-
-                if (Engine.IsKeyDown(Keys.Down) || Engine.IsKeyDown(Keys.S))
-                {
-                    movY += 5f + velY * deltaTime;
-                }
+                player.Input(deltaTime);
             }
 
-            void Update()   // aqui se pueden agregar controles de input
+            void Update()
             {
-                // El movimiento se maneja en Input() para respuesta inmediata
+                player.Update(deltaTime);
+                asteroid.Update(deltaTime);
             }
 
-            void Render() 
+            void Render()
             {
-                Engine.Draw("Textures/Fondo/BackGround.png",0 ,0, 0.5f, 0.5f);
-                Engine.Draw("Textures/Player/Player.png", 20, (SCREEN_HEIGHT / 2) + movY, 0.05f, 0.05f);
-
+                Engine.Draw("Textures/Fondo/BackGround.png", 0, 0, 0.5f, 0.5f);
+                player.Render();
+                asteroid.Render();
             }
         }
 
