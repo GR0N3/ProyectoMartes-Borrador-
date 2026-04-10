@@ -216,7 +216,6 @@ C:\Users\p763\Desktop\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\gunshot-352466.w
 C:\Users\p763\Desktop\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\laser-zap-90575.wav
 C:\Users\p763\Desktop\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\pistol-shot-233473.wav
 C:\Users\p763\Desktop\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\sound.wav
-C:\Users\p763\Desktop\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\test.png
 C:\Users\p763\Desktop\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\1.png
 C:\Users\p763\Desktop\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\2.png
 C:\Users\p763\Desktop\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\3.png
@@ -250,65 +249,26 @@ C:\Users\p763\Desktop\EngineGDI - Base.v2.4\EngineGDI\obj\Debug\EngineGDI.csproj
 C:\Users\p763\Desktop\EngineGDI - Base.v2.4\EngineGDI\obj\Debug\EngineGDI.csproj.CoreCompileInputs.cache
 C:\Users\p763\Desktop\EngineGDI - Base.v2.4\EngineGDI\obj\Debug\EngineGDI.exe
 C:\Users\p763\Desktop\EngineGDI - Base.v2.4\EngineGDI\obj\Debug\EngineGDI.pdb
-e:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\obj\Debug\EngineGDI.exe
-e:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\obj\Debug\EngineGDI.pdb
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\explosion-42132.wav
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\gunshot-352466.wav
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\laser-zap-90575.wav
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\pistol-shot-233473.wav
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\sound.wav
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\test.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\1.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\2.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\3.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\4.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\5.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\6.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\7.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\8.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\Idle\0.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\Idle\1.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\Idle\2.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\Idle\3.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\Idle_e\meteorito1.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\Idle_e\meteorito10.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\Idle_e\meteorito2.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\Idle_e\meteorito3.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\Idle_e\meteorito4.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\Idle_e\meteorito5.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\Idle_e\meteorito6.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\Idle_e\meteorito7.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\Idle_e\meteorito8.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Animations\Idle_e\meteorito9.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\victoria_2.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\EngineGDI.exe.config
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\EngineGDI.exe
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\EngineGDI.pdb
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\obj\Debug\EngineGDI.csproj.AssemblyReference.cache
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\obj\Debug\EngineGDI.Properties.Resources.resources
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\obj\Debug\EngineGDI.csproj.GenerateResource.cache
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4\EngineGDI\obj\Debug\EngineGDI.csproj.CoreCompileInputs.cache
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\bin\Debug\explosion-42132.wav
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\bin\Debug\gunshot-352466.wav
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\bin\Debug\laser-zap-90575.wav
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\bin\Debug\pistol-shot-233473.wav
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\bin\Debug\sound.wav
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\bin\Debug\test.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\bin\Debug\victoria_2.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\bin\Debug\EngineGDI.exe.config
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\bin\Debug\EngineGDI.exe
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\bin\Debug\EngineGDI.pdb
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\obj\Debug\EngineGDI.csproj.AssemblyReference.cache
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\obj\Debug\EngineGDI.Properties.Resources.resources
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\obj\Debug\EngineGDI.csproj.GenerateResource.cache
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\obj\Debug\EngineGDI.csproj.CoreCompileInputs.cache
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\obj\Debug\EngineGDI.exe
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\obj\Debug\EngineGDI.pdb
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\bin\Debug\Textures\Fondo\Fondo.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\bin\Debug\Textures\Fondo\BackGround.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\bin\Debug\Textures\Player\Player.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\bin\Debug\Textures\Anims\AsteroidDestroy\Asteroid_01.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\bin\Debug\Textures\Anims\AsteroidDestroy\Asteroid_02.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\bin\Debug\Textures\Anims\AsteroidDestroy\Asteroid_03.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\bin\Debug\Textures\Anims\AsteroidDestroy\Asteroid_04.png
-E:\ParadigmasProgramacion\EngineGDI - Base.v2.4 (Borrador)\EngineGDI\bin\Debug\Textures\Objetos\Asteroide\Asteroid_idle.png
+C:\Users\p763\Desktop\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\test.png
+C:\Users\p763\Desktop\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\cancha.png
+C:\Users\p763\Desktop\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\messi.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\explosion-42132.wav
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\gunshot-352466.wav
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\laser-zap-90575.wav
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\pistol-shot-233473.wav
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\sound.wav
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\test.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\victoria_2.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\obj\Debug\EngineGDI.csproj.AssemblyReference.cache
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\obj\Debug\EngineGDI.Properties.Resources.resources
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\obj\Debug\EngineGDI.csproj.GenerateResource.cache
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\obj\Debug\EngineGDI.csproj.CoreCompileInputs.cache
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\obj\Debug\EngineGDI.exe
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\obj\Debug\EngineGDI.pdb
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\BackGrounds\BackGround.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Player\Player.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Objects\Asteroide\Asteroid_idle.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Objects\Bala\Bullet.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\EngineGDI.exe.config
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\EngineGDI.exe
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\EngineGDI.pdb

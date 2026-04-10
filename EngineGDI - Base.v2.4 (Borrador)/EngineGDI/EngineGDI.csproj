@@ -47,11 +47,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Asteroid.cs" />
+    <Compile Include="AsteroidPool.cs" />
+    <Compile Include="Bullet.cs" />
+    <Compile Include="BulletPool.cs" />
     <Compile Include="Engine.cs" />
-    <Compile Include="player.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Spawner.cs" />
+    <Compile Include="Transform.cs" />
+    <Compile Include="Vector2.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -93,25 +97,17 @@
     <Content Include="test.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Textures\Anims\AsteroidDestroy\Asteroid_01.png">
+    <Content Include="Textures\Anims\AsteroidDestroy\Asteroid_01.png" />
+    <Content Include="Textures\Anims\AsteroidDestroy\Asteroid_02.png" />
+    <Content Include="Textures\Anims\AsteroidDestroy\Asteroid_03.png" />
+    <Content Include="Textures\Anims\AsteroidDestroy\Asteroid_04.png" />
+    <Content Include="Textures\BackGrounds\BackGround.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Textures\Anims\AsteroidDestroy\Asteroid_02.png">
+    <Content Include="Textures\Objects\Asteroide\Asteroid_idle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Textures\Anims\AsteroidDestroy\Asteroid_03.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Textures\Anims\AsteroidDestroy\Asteroid_04.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Textures\Fondo\BackGround.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Textures\Fondo\Fondo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Textures\Objetos\Asteroide\Asteroid_idle.png">
+    <Content Include="Textures\Objects\Bala\Bullet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\Player\Player.png">

@@ -1,11 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace EngineGDI
 {
-    public class player
+    public class Player
     {
-        public float posX;
-        public float posY;
+        public Transform Transform;
+
+        public float posX
+        {
+            get => Transform.Position.X;
+            set => Transform.Position = new Vector2(value, Transform.Position.Y);
+        }
+
+        public float posY
+        {
+            get => Transform.Position.Y;
+            set => Transform.Position = new Vector2(Transform.Position.X, value);
+        }
 
         private string sprite;
         private float speed;
@@ -23,12 +39,11 @@ namespace EngineGDI
         // Velocidad máxima en Y
         private const float velMax = 400f;
 
-        public player(string sprite, float posX, float posY, float speed)
+        public Player(string sprite, float posX, float posY, float speed)
         {
             this.sprite = sprite;
-            this.posX      = posX;
-            this.posY      = posY;
-            this.speed     = speed;
+            Transform = new Transform(new Vector2(posX, posY), new Vector2(0.05f, 0.05f));
+            this.speed = speed;
         }
 
         public void Input(float deltaTime)
@@ -48,7 +63,7 @@ namespace EngineGDI
             }
 
             // Clamp de velocidad máxima
-            if (velY >  velMax) velY =  velMax;
+            if (velY > velMax) velY = velMax;
             if (velY < -velMax) velY = -velMax;
         }
 
@@ -59,7 +74,8 @@ namespace EngineGDI
 
         public void Render(float scaleX = 0.05f, float scaleY = 0.05f)
         {
-            Engine.Draw(sprite, posX, posY, scaleX, scaleY);
+            Transform.Scale = new Vector2(scaleX, scaleY);
+            Engine.Draw(sprite, Transform.Position.X, Transform.Position.Y, Transform.Scale.X, Transform.Scale.Y, Transform.Rotation);
         }
     }
 }
