@@ -1,0 +1,58 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EngineGDI
+{
+    public class Animation
+    {
+        private bool isLoop;
+        private string name;
+        private float speed;
+        private float currentTime;
+        private int currentFrame = 0;
+        private readonly List<Image> textures = new List<Image>();
+
+        public Image CurrentTexture => textures.Count > 0 ? textures[currentFrame] : null;
+
+        public Animation(string name, List<Image> textures, float speed, bool isLoop = true)
+        {
+            this.name = name;
+            this.speed = speed;
+            this.isLoop = isLoop;
+            this.currentFrame = 0;
+
+            if (textures != null) 
+            {
+                this.textures = textures;
+            }
+        }
+
+        public void Update() 
+        {
+            currentTime += Program.deltaTime;
+
+            if (currentTime >= speed && textures.Count > 0)
+            {
+                currentTime -= speed;
+                currentFrame++;
+
+                if (currentFrame >= textures.Count) 
+                {
+                    if (isLoop) 
+                    {
+                        currentFrame = 0;
+                    }
+                    else 
+                    {
+                        currentFrame = textures.Count - 1;
+                    }
+                }
+            }
+        }
+
+    }
+}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,10 +26,13 @@ namespace EngineGDI
 
         private string sprite;
         public bool IsActive { get; private set; }
+        public Vector2 ColliderSize { get; } = new Vector2(26f, 12f);
+        private const float ColliderReferenceScaleX = 0.05f;
+        private const float ColliderReferenceScaleY = 0.08f;
 
         public Bullet(string sprite, float posX, float posY, float velX)
         {
-            Transform = new Transform(new Vector2(posX, posY), new Vector2(0.1f, 0.1f));
+            Transform = new Transform(new Vector2(posX, posY), new Vector2(ColliderReferenceScaleX, ColliderReferenceScaleY));
             this.sprite = sprite;
             this.velX = velX;
             IsActive = true;
@@ -60,6 +64,18 @@ namespace EngineGDI
             Transform.Scale = new Vector2(scaleX, scaleY);
             Engine.Draw(sprite, Transform.Position.X, Transform.Position.Y, Transform.Scale.X, Transform.Scale.Y);
             if (!IsActive) return;
+        }
+
+        public RectangleF GetCollider()
+        {
+            float width = ColliderSize.X * (Transform.Scale.X / ColliderReferenceScaleX);
+            float height = ColliderSize.Y * (Transform.Scale.Y / ColliderReferenceScaleY);
+
+            return new RectangleF(
+                Transform.Position.X,
+                Transform.Position.Y,
+                width,
+                height);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -46,8 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animation.cs" />
     <Compile Include="Asteroid.cs" />
     <Compile Include="AsteroidPool.cs" />
+    <Compile Include="AsteroidSpawner.cs" />
+    <Compile Include="BackgroundManager.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="BulletPool.cs" />
     <Compile Include="Engine.cs" />
@@ -97,11 +100,31 @@
     <Content Include="test.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Textures\Anims\AsteroidDestroy\Asteroid_01.png" />
-    <Content Include="Textures\Anims\AsteroidDestroy\Asteroid_02.png" />
-    <Content Include="Textures\Anims\AsteroidDestroy\Asteroid_03.png" />
-    <Content Include="Textures\Anims\AsteroidDestroy\Asteroid_04.png" />
+    <Content Include="Textures\Anims\AsteroidDestroy\0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\Anims\AsteroidDestroy\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\Anims\AsteroidDestroy\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\Anims\AsteroidDestroy\3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\Anims\AsteroidDestroy\4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\Anims\AsteroidDestroy\5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Textures\BackGrounds\BackGround.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\BackGrounds\Fondo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\BackGrounds\Estrellas.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\Objects\Asteroide\Asteroid_idle.png">

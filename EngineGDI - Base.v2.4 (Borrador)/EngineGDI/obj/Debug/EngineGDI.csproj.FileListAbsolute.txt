@@ -272,3 +272,11 @@ C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\
 C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\EngineGDI.exe.config
 C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\EngineGDI.exe
 C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\EngineGDI.pdb
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Anims\AsteroidDestroy\0.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Anims\AsteroidDestroy\1.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Anims\AsteroidDestroy\2.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Anims\AsteroidDestroy\3.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Anims\AsteroidDestroy\4.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Anims\AsteroidDestroy\5.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\BackGrounds\Fondo.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\BackGrounds\Estrellas.png

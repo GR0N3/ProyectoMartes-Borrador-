@@ -18,3 +18,11 @@ c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\obj\Releas
 c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\obj\Release\EngineGDI.csproj.CoreCompileInputs.cache
 c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\obj\Release\EngineGDI.exe
 c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\obj\Release\EngineGDI.pdb
+c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Textures\Anims\AsteroidDestroy\0.png
+c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Textures\Anims\AsteroidDestroy\1.png
+c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Textures\Anims\AsteroidDestroy\2.png
+c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Textures\Anims\AsteroidDestroy\3.png
+c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Textures\Anims\AsteroidDestroy\4.png
+c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Textures\Anims\AsteroidDestroy\5.png
+c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Textures\BackGrounds\Fondo.png
+c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Textures\BackGrounds\Estrellas.png

@@ -1,8 +1,5 @@
-﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 
 namespace EngineGDI
 {
@@ -61,6 +58,71 @@ namespace EngineGDI
         {
             for (int i = 0; i < active.Count; i++)
                 active[i].Render(scaleX, scaleY);
+        }
+
+        public bool TryHitAsteroid(Asteroid asteroid)
+        {
+            if (asteroid == null || !asteroid.IsAlive || asteroid.IsDestroying) return false;
+            RectangleF asteroidCollider = asteroid.GetCollider();
+
+            for (int i = active.Count - 1; i >= 0; i--)
+            {
+                var b = active[i];
+                if (!b.IsActive)
+                {
+                    ReleaseAt(i);
+                    continue;
+                }
+
+                if (IsBoxColliding(b.GetCollider(), asteroidCollider))
+                {
+                    ReleaseAt(i);
+                    asteroid.Destroy();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool TryHitAsteroids(IReadOnlyList<Asteroid> asteroids)
+        {
+            if (asteroids == null || asteroids.Count == 0) return false;
+
+            for (int i = active.Count - 1; i >= 0; i--)
+            {
+                var b = active[i];
+                if (!b.IsActive)
+                {
+                    ReleaseAt(i);
+                    continue;
+                }
+
+                RectangleF bulletCollider = b.GetCollider();
+
+                for (int j = 0; j < asteroids.Count; j++)
+                {
+                    var a = asteroids[j];
+                    if (a == null || !a.IsAlive || a.IsDestroying) continue;
+
+                    if (IsBoxColliding(bulletCollider, a.GetCollider()))
+                    {
+                        ReleaseAt(i);
+                        a.Destroy();
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private bool IsBoxColliding(RectangleF a, RectangleF b)
+        {
+            return a.Left < b.Right &&
+                   a.Right > b.Left &&
+                   a.Top < b.Bottom &&
+                   a.Bottom > b.Top;
         }
 
         // Devuelve una bala activa al pool:

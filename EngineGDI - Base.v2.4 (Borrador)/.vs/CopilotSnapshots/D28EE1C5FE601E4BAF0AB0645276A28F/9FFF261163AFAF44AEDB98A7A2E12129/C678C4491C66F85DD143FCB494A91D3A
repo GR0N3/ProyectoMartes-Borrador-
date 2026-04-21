@@ -1,0 +1,96 @@
+﻿using System.Collections.Generic;
+
+namespace EngineGDI
+{
+    public class Asteroid
+    {
+        public Transform Transform;
+        public bool IsAlive { get; private set; } = true;
+        public bool IsDestroying { get; private set; }
+
+        public float posX
+        {
+            get => Transform.Position.X;
+            set => Transform.Position = new Vector2(value, Transform.Position.Y);
+        }
+
+        public float posY
+        {
+            get => Transform.Position.Y;
+            set => Transform.Position = new Vector2(Transform.Position.X, value);
+        }
+
+        public float velX;
+        private string idleSprite;
+        private List<string> destroySprites;
+        private string currentSprite;
+        private int destroyFrameIndex;
+        private float destroyFrameTimer;
+        private float destroyFrameDuration = 0.1f;
+
+        public Asteroid(string sprite, float posX, float posY, float velX)
+        {
+            Transform = new Transform(new Vector2(posX, posY), new Vector2(0.1f, 0.1f));
+            this.velX = velX;
+            idleSprite = sprite;
+            destroySprites = new List<string>
+            {
+                "Textures/Anims/AsteroidDestroy/0.png",
+                "Textures/Anims/AsteroidDestroy/1.png",
+                "Textures/Anims/AsteroidDestroy/2.png",
+                "Textures/Anims/AsteroidDestroy/3.png",
+                "Textures/Anims/AsteroidDestroy/4.png",
+                "Textures/Anims/AsteroidDestroy/5.png"
+            };
+            currentSprite = idleSprite;
+        }
+
+        public void Destroy()
+        {
+            if (!IsAlive || IsDestroying) return;
+            IsDestroying = true;
+            destroyFrameIndex = 0;
+            destroyFrameTimer = 0f;
+            currentSprite = destroySprites[destroyFrameIndex];
+        }
+
+        public void Input()
+        {
+
+        }
+
+        public void Update(float deltaTime)
+        {
+            if (!IsAlive) return;
+
+            if (IsDestroying)
+            {
+                destroyFrameTimer += deltaTime;
+                if (destroyFrameTimer >= destroyFrameDuration)
+                {
+                    destroyFrameTimer -= destroyFrameDuration;
+                    destroyFrameIndex++;
+
+                    if (destroyFrameIndex >= destroySprites.Count)
+                    {
+                        IsAlive = false;
+                        return;
+                    }
+
+                    currentSprite = destroySprites[destroyFrameIndex];
+                }
+
+                return;
+            }
+
+            posX -= velX * deltaTime;
+        }
+
+        public void Render(float scaleX = 0.1f, float scaleY = 0.1f)
+        {
+            if (!IsAlive) return;
+            Transform.Scale = new Vector2(scaleX, scaleY);
+            Engine.Draw(currentSprite, Transform.Position.X, Transform.Position.Y, Transform.Scale.X, Transform.Scale.Y, Transform.Rotation);
+        }
+    }
+}

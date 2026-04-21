@@ -23,8 +23,8 @@ namespace EngineGDI
             set => Transform.Position = new Vector2(Transform.Position.X, value);
         }
 
-        private string sprite;
         private float speed;
+        private string sprite;
 
         // Velocidad actual en Y (se acumula y amortigua para lograr suavidad)
         private float velY = 0f;

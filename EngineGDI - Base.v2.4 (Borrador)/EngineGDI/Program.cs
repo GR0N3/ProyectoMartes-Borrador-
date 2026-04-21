@@ -1,4 +1,3 @@
-
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -19,8 +18,9 @@ namespace EngineGDI
         public static int SCREEN_WIDTH = 1024;
         public static int SCREEN_HEIGHT = 768;
         private static Player player;
-        private static Asteroid asteroid;
         private static BulletPool bulletPool;
+        private static BackgroundManager backgroundManager;
+        private static AsteroidPool asteroidPool;
 
         // Tiempo mínimo entre disparos (en segundos)
         private static float cadencia = 0.3f;
@@ -37,12 +37,15 @@ namespace EngineGDI
 
             player = new Player("Textures/Player/Player.png", 20, SCREEN_HEIGHT / 2, 200f);
 
-            asteroid = new Asteroid("Textures/Objects/Asteroide/Asteroid_idle.png", 800, 100, 100);
-
             // Pool de balas:
             // - 40 = cantidad máxima de balas simultáneas
             // - 500 = velocidad en X de cada bala
             bulletPool = new BulletPool("Textures/Objects/Bala/Bullet.png", 10, 500f);
+            backgroundManager = new BackgroundManager(SCREEN_WIDTH);
+            asteroidPool = AsteroidSpawner.CrearPoolCon5Spawners(
+                anchoPantalla: SCREEN_WIDTH,
+                altoPantalla: SCREEN_HEIGHT,
+                spriteAsteroide: "Textures/Objects/Asteroide/Asteroid_idle.png");
 
 
             while (Engine.IsWindowOpen)
@@ -101,18 +104,20 @@ namespace EngineGDI
 
         static void Update()
         {
+            backgroundManager.Update(deltaTime);
             player.Update(deltaTime);
-            asteroid.Update(deltaTime);
 
-            // Mueve balas activas y devuelve al pool las que salen de pantalla.
+            // Actualizar balas primero para que la detección de colisiones use las posiciones más recientes
             bulletPool.Update(deltaTime, SCREEN_WIDTH);
+            asteroidPool.Update(deltaTime);
+            bulletPool.TryHitAsteroids(asteroidPool.Asteroids);
         }
 
         static void Render()
         {
-            Engine.Draw("Textures/BackGrounds/BackGround.png", 0, 0);
+            backgroundManager.Render();
             player.Render();
-            asteroid.Render();
+            asteroidPool.Render();
             bulletPool.Render();
         }
 
