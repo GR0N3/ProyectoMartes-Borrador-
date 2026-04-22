@@ -11,16 +11,13 @@ namespace EngineGDI
         public static float deltaTime;
         static DateTime lastFrameTime = DateTime.Now;
 
-        // mostrar debug
-        public static bool showDebug = true;
-        public static string currentMsg = "";
-
         public static int SCREEN_WIDTH = 1024;
         public static int SCREEN_HEIGHT = 768;
         private static Player player;
         private static BulletPool bulletPool;
         private static BackgroundManager backgroundManager;
         private static AsteroidPool asteroidPool;
+        private static UIManager uiManager;
 
         // Tiempo mínimo entre disparos (en segundos)
         private static float cadencia = 0.3f;
@@ -35,17 +32,26 @@ namespace EngineGDI
 
             Engine.Initialize("IERVA ENGINE", SCREEN_WIDTH, SCREEN_HEIGHT, false);
 
+            // Carga una fuente desde archivo para los textos de UI.
+            Engine.SetUIFontFromFile("Fonts/pixel_lcd_7.ttf", FontStyle.Regular);
+
+            // Inicializa UI y player. El player se reposiciona para quedar centrado en el área jugable (debajo de la HUD).
+            uiManager = new UIManager(SCREEN_WIDTH);
             player = new Player("Textures/Player/Player.png", 20, SCREEN_HEIGHT / 2, 200f);
+            CenterPlayerInPlayableArea();
 
             // Pool de balas:
             // - 40 = cantidad máxima de balas simultáneas
             // - 500 = velocidad en X de cada bala
             bulletPool = new BulletPool("Textures/Objects/Bala/Bullet.png", 10, 500f);
             backgroundManager = new BackgroundManager(SCREEN_WIDTH);
+
+            // Pool de asteroides con 5 spawners a lo largo del eje Y, evitando la zona de HUD.
             asteroidPool = AsteroidSpawner.CrearPoolCon5Spawners(
                 anchoPantalla: SCREEN_WIDTH,
                 altoPantalla: SCREEN_HEIGHT,
-                spriteAsteroide: "Textures/Objects/Asteroide/Asteroid_idle.png");
+                spriteAsteroide: "Textures/Objects/Asteroide/Asteroid_idle.png",
+                yMin: uiManager.HudHeight + 10f);
 
 
             while (Engine.IsWindowOpen)
@@ -62,15 +68,6 @@ namespace EngineGDI
 
 
                 #region Engine Window Control
-                //Engine.Clear(Color.Black);
-                currentMsg = deltaTime.ToString();
-                // mensajes de debug
-                if (showDebug)
-                {
-                    Engine.ClearDebug();
-                    Engine.DebugLog(currentMsg);
-
-                }
                 Engine.Window.Invalidate();
                 #endregion
             }
@@ -93,10 +90,11 @@ namespace EngineGDI
 
             if (Engine.IsKeyDown(Keys.Space) && tiempoUltimoDisparo <= 0f)
             {
-                // Instancia la bala en el borde derecho del sprite del player, mitad del Y
+                // Spawnea la bala cercana al player (ajuste manual de offsets).
                 float spawnX = player.posX + 100f;
                 float spawnY = player.posY + 10f;
-                // Si la pool está agotada, TrySpawn devuelve false y no dispara (sin crear objetos nuevos).
+
+                // Dispara usando la pool (reutiliza balas).
                 bulletPool.TrySpawn(spawnX, spawnY);
                 tiempoUltimoDisparo = cadencia;
             }
@@ -105,20 +103,77 @@ namespace EngineGDI
         static void Update()
         {
             backgroundManager.Update(deltaTime);
-            player.Update(deltaTime);
+            player.Update(deltaTime, uiManager.HudHeight, SCREEN_HEIGHT);
 
-            // Actualizar balas primero para que la detección de colisiones use las posiciones más recientes
+            // Se actualizan balas antes que colisiones para usar posiciones recientes.
             bulletPool.Update(deltaTime, SCREEN_WIDTH);
             asteroidPool.Update(deltaTime);
-            bulletPool.TryHitAsteroids(asteroidPool.Asteroids);
+            if (bulletPool.TryHitAsteroids(asteroidPool.Asteroids))
+                uiManager.AddScore(100);
+
+            // Si el player colisiona con un asteroide:
+            // - desactiva el asteroide (desaparece)
+            // - deshabilita collider del player por 0.5s (evita colisiones múltiples)
+            // - aplica daño/vida (con blink)
+            var collidingAsteroid = GetCollidingAsteroid();
+            if (collidingAsteroid != null)
+            {
+                collidingAsteroid.Deactivate();
+                player.DisableCollider(0.5f);
+
+                if (player.TryTakeDamage(0.5f))
+                    uiManager.RemoveLife(1);
+            }
         }
 
+        // Renderiza el frame:
+        // orden de capas: fondo → player/objetos → UI encima.
         static void Render()
         {
             backgroundManager.Render();
             player.Render();
             asteroidPool.Render();
             bulletPool.Render();
+            uiManager.Render();
+        }
+
+        // Detecta colisión player ↔ asteroides:
+        // Recorre el pool y devuelve el primer asteroide con el que colisiona (si existe).
+        static Asteroid GetCollidingAsteroid()
+        {
+            RectangleF playerCollider = player.GetCollider();
+            if (playerCollider.IsEmpty) return null;
+
+            var asteroids = asteroidPool.Asteroids;
+            for (int i = 0; i < asteroids.Count; i++)
+            {
+                var a = asteroids[i];
+                if (a == null || !a.IsAlive || a.IsDestroying) continue;
+                if (IsBoxColliding(playerCollider, a.GetCollider()))
+                    return a;
+            }
+
+            return null;
+        }
+
+        // Colisión AABB (Axis-Aligned Bounding Box) entre 2 rectángulos sin rotación.
+        static bool IsBoxColliding(RectangleF a, RectangleF b)
+        {
+            return a.Left < b.Right &&
+                   a.Right > b.Left &&
+                   a.Top < b.Bottom &&
+                   a.Bottom > b.Top;
+        }
+
+        // Centra el player en el área jugable (debajo de la HUD):
+        // - minY = HudHeight
+        // - calcula altura jugable y ubica al player en el centro vertical
+        static void CenterPlayerInPlayableArea()
+        {
+            float minY = uiManager.HudHeight;
+            float playerHeight = player.SpriteSize.Y * player.Transform.Scale.Y * player.ColliderScale.Y;
+            float playableHeight = SCREEN_HEIGHT - minY;
+            player.posY = minY + (playableHeight - playerHeight) / 2f;
         }
 
     }

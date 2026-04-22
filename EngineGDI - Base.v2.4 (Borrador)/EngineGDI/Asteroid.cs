@@ -144,7 +144,7 @@ namespace EngineGDI
         }
 
         // Devuelve el rectángulo de colisión (AABB) escalado según el Transform.
-        // Se usa para detectar colisión bala ↔ asteroide.
+        // Se usa para detectar colisión bala ↔ asteroide y player ↔ asteroide.
         public RectangleF GetCollider()
         {
             float width = ColliderSize.X * (Transform.Scale.X / ColliderReferenceScaleX);

@@ -3,16 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\enginegdi\\asteroid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|solutionrelative:enginegdi\\asteroid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|c:\\users\\ezequiel\\onedrive\\escritorio\\enginegdi - base.v2.4\\enginegdi\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|solutionrelative:enginegdi\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|c:\\users\\ezequiel\\onedrive\\escritorio\\enginegdi - base.v2.4\\enginegdi\\asteroidpool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|solutionrelative:enginegdi\\asteroidpool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\enginegdi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|solutionrelative:enginegdi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\enginegdi\\bulletpool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|solutionrelative:enginegdi\\bulletpool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\enginegdi\\backgroundmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|solutionrelative:enginegdi\\backgroundmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|c:\\users\\ezequiel\\onedrive\\escritorio\\enginegdi - base.v2.4\\enginegdi\\engine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|solutionrelative:enginegdi\\engine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\enginegdi\\asteroidpool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|solutionrelative:enginegdi\\asteroidpool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\enginegdi\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|solutionrelative:enginegdi\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\enginegdi\\asteroid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|solutionrelative:enginegdi\\asteroid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\enginegdi\\animation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -23,24 +43,12 @@
       "RelativeMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|solutionrelative:enginegdi\\bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\enginegdi\\backgroundmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|solutionrelative:enginegdi\\backgroundmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|c:\\users\\ezequiel\\onedrive\\escritorio\\enginegdi - base.v2.4\\enginegdi\\asteroidspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\enginegdi\\asteroidspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|solutionrelative:enginegdi\\asteroidspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\enginegdi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|solutionrelative:enginegdi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\enginegdi\\transform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|solutionrelative:enginegdi\\transform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\enginegdi\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|solutionrelative:enginegdi\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AE1DB8CF-6507-4878-B179-2B2A5FDF7A67}|EngineGDI\\EngineGDI.csproj|C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\enginegdi\\vector2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -54,50 +62,62 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "AsteroidSpawner.cs",
-              "DocumentMoniker": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\AsteroidSpawner.cs",
-              "RelativeDocumentMoniker": "EngineGDI\\AsteroidSpawner.cs",
-              "ToolTip": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\AsteroidSpawner.cs",
-              "RelativeToolTip": "EngineGDI\\AsteroidSpawner.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "UIManager.cs",
+              "DocumentMoniker": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\UIManager.cs",
+              "RelativeDocumentMoniker": "EngineGDI\\UIManager.cs",
+              "ToolTip": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\UIManager.cs*",
+              "RelativeToolTip": "EngineGDI\\UIManager.cs*",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAmwGgAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-21T00:55:08.779Z",
+              "WhenOpened": "2026-04-22T04:11:46.422Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AsteroidPool.cs",
-              "DocumentMoniker": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\AsteroidPool.cs",
-              "RelativeDocumentMoniker": "EngineGDI\\AsteroidPool.cs",
-              "ToolTip": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\AsteroidPool.cs",
-              "RelativeToolTip": "EngineGDI\\AsteroidPool.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIsAAAA5AAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "Engine.cs",
+              "DocumentMoniker": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\Engine.cs",
+              "RelativeDocumentMoniker": "EngineGDI\\Engine.cs",
+              "ToolTip": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\Engine.cs",
+              "RelativeToolTip": "EngineGDI\\Engine.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAA5wCoAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-21T00:28:41.257Z",
+              "WhenOpened": "2026-04-22T03:38:05.019Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
+              "Title": "AsteroidPool.cs",
+              "DocumentMoniker": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\AsteroidPool.cs",
+              "RelativeDocumentMoniker": "EngineGDI\\AsteroidPool.cs",
+              "ToolTip": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\AsteroidPool.cs",
+              "RelativeToolTip": "EngineGDI\\AsteroidPool.cs",
+              "ViewState": "AgIAAFwAAAAAAAAAAAAIwIsAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T00:28:41.257Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "BackgroundManager.cs",
               "DocumentMoniker": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\BackgroundManager.cs",
               "RelativeDocumentMoniker": "EngineGDI\\BackgroundManager.cs",
               "ToolTip": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\BackgroundManager.cs",
               "RelativeToolTip": "EngineGDI\\BackgroundManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADgAAAALAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADMAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T23:51:25.44Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "Bullet.cs",
               "DocumentMoniker": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\Bullet.cs",
               "RelativeDocumentMoniker": "EngineGDI\\Bullet.cs",
@@ -105,12 +125,11 @@
               "RelativeToolTip": "EngineGDI\\Bullet.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAAD4AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T23:51:25.441Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T23:51:25.441Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "Animation.cs",
               "DocumentMoniker": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\Animation.cs",
               "RelativeDocumentMoniker": "EngineGDI\\Animation.cs",
@@ -118,21 +137,19 @@
               "RelativeToolTip": "EngineGDI\\Animation.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAAowD4AAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T23:51:25.442Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T23:51:25.442Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 7,
               "Title": "Asteroid.cs",
               "DocumentMoniker": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\Asteroid.cs",
               "RelativeDocumentMoniker": "EngineGDI\\Asteroid.cs",
               "ToolTip": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\Asteroid.cs",
               "RelativeToolTip": "EngineGDI\\Asteroid.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAkwJMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T23:51:25.443Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T23:51:25.443Z"
             },
             {
               "$type": "Document",
@@ -142,26 +159,51 @@
               "RelativeDocumentMoniker": "EngineGDI\\BulletPool.cs",
               "ToolTip": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\BulletPool.cs",
               "RelativeToolTip": "EngineGDI\\BulletPool.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAEIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAIAAAAAAAAAAAAAuwEUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T23:51:25.444Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\Program.cs",
+              "RelativeDocumentMoniker": "EngineGDI\\Program.cs",
+              "ToolTip": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\Program.cs",
+              "RelativeToolTip": "EngineGDI\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T23:51:25.452Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Player.cs",
               "DocumentMoniker": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\Player.cs",
               "RelativeDocumentMoniker": "EngineGDI\\Player.cs",
               "ToolTip": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\Player.cs",
               "RelativeToolTip": "EngineGDI\\Player.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAowBoAAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAuwA4AAABKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T23:51:25.444Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
+              "Title": "AsteroidSpawner.cs",
+              "DocumentMoniker": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\AsteroidSpawner.cs",
+              "RelativeDocumentMoniker": "EngineGDI\\AsteroidSpawner.cs",
+              "ToolTip": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\AsteroidSpawner.cs",
+              "RelativeToolTip": "EngineGDI\\AsteroidSpawner.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T00:55:08.779Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "Vector2.cs",
               "DocumentMoniker": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\Vector2.cs",
               "RelativeDocumentMoniker": "EngineGDI\\Vector2.cs",
@@ -173,7 +215,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "Transform.cs",
               "DocumentMoniker": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\Transform.cs",
               "RelativeDocumentMoniker": "EngineGDI\\Transform.cs",
@@ -182,18 +224,6 @@
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAB0AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T23:51:25.446Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\Program.cs",
-              "RelativeDocumentMoniker": "EngineGDI\\Program.cs",
-              "ToolTip": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\Program.cs",
-              "RelativeToolTip": "EngineGDI\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIYAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T23:51:25.452Z"
             }
           ]
         }

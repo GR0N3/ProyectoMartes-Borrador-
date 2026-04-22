@@ -17,7 +17,10 @@ namespace EngineGDI
         public float SpawnY => spawnY;
         public bool PuedeSpawnear => cooldownRestante <= 0f;
 
-        // Crea un spawner en una posición fija (spawnX, spawnY) con un rango de velocidades y un cooldown mínimo entre spawns. 
+        // Constructor del spawner:
+        // - spawnX/spawnY: punto donde aparecerán los asteroides de este carril.
+        // - velocidadMin/velocidadMax: rango de velocidades (se elige una random al spawnear).
+        // - cooldownSegundos: tiempo mínimo entre spawns desde este mismo carril.
         public AsteroidSpawner(float spawnX, float spawnY, float velocidadMin, float velocidadMax, float cooldownSegundos = 0.6f)
         {
             this.spawnX = spawnX;
@@ -35,9 +38,11 @@ namespace EngineGDI
                 cooldownRestante -= deltaTime;
         }
 
-        // Intenta spawnear un asteroide:
-        // si está en cooldown devuelve false
-        // si puede, respawnea el asteroide en (spawnX, spawnY) con una velocidad random del rango y activa el cooldown.
+        // Intenta spawnear un asteroide en este carril:
+        // 1) si está en cooldown, devuelve false
+        // 2) si puede, elige una velocidad aleatoria del rango
+        // 3) llama a asteroid.Respawn(...) para reusar el objeto
+        // 4) reinicia el cooldown y devuelve true
         public bool TrySpawn(Asteroid asteroid, Random random)
         {
             if (!PuedeSpawnear) return false;
@@ -52,6 +57,8 @@ namespace EngineGDI
         // Interpolación lineal (a..b) usada para elegir velocidades random.
         private static float Lerp(float a, float b, float t) => a + (b - a) * t;
 
+        // Helper de fábrica para crear una pool con 5 spawners distribuidos a lo largo del eje Y.
+        // Esto evita tener que instanciar spawners y pool manualmente desde Program.cs.
         public static AsteroidPool CrearPoolCon5Spawners(
             int anchoPantalla,
             int altoPantalla,
@@ -66,8 +73,10 @@ namespace EngineGDI
             float yMaxOffset = 200f,
             float cooldownSpawner = 0.8f)
         {
+            // yMaxOffset se usa para no spawnear demasiado abajo (ej: dejar espacio para UI inferior si existiera).
             float yMax = altoPantalla - yMaxOffset;
 
+            // Crea 5 carriles (spawners) equiespaciados en Y entre yMin y yMax.
             var spawners = new AsteroidSpawner[5];
             for (int i = 0; i < spawners.Length; i++)
             {
@@ -76,6 +85,7 @@ namespace EngineGDI
                 spawners[i] = new AsteroidSpawner(spawnX, y, velocidadMin, velocidadMax, cooldownSpawner);
             }
 
+            // Construye y devuelve la pool ya configurada.
             return new AsteroidPool(
                 capacity: cantidadEnPool,
                 targetFlying: asteroidesSimultaneos,

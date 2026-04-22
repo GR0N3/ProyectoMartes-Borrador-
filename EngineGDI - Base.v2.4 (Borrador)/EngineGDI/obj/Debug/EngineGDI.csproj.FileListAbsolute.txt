@@ -265,7 +265,6 @@ C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\obj\Debug\
 C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\obj\Debug\EngineGDI.csproj.CoreCompileInputs.cache
 C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\obj\Debug\EngineGDI.exe
 C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\obj\Debug\EngineGDI.pdb
-C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\BackGrounds\BackGround.png
 C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Player\Player.png
 C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Objects\Asteroide\Asteroid_idle.png
 C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Objects\Bala\Bullet.png
@@ -280,3 +279,6 @@ C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\
 C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Anims\AsteroidDestroy\5.png
 C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\BackGrounds\Fondo.png
 C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\BackGrounds\Estrellas.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\UI\HUD\Black_Rect.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\UI\HUD\Blue_Rect.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Fonts\pixel_lcd_7.ttf

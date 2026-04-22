@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Media;
 using System.Windows.Forms;
 
@@ -15,9 +16,23 @@ namespace EngineGDI
             public float X, Y, ScaleX, ScaleY;
             public float Angle, OffsetX, OffsetY;
         }
+        private class TextCommand
+        {
+            public string Text;
+            public float X, Y;
+            public int FontSize;
+            public Color Color;
+        }
         private static Dictionary<string, Image> textures = new Dictionary<string, Image>();
         private static Dictionary<string, SoundPlayer> sounds = new Dictionary<string, SoundPlayer>();
         private static List<DrawCommand> drawQueue = new List<DrawCommand>();
+        private static List<TextCommand> textQueue = new List<TextCommand>();
+        private static Dictionary<int, Font> fontCache = new Dictionary<int, Font>();
+        private static Dictionary<int, Brush> brushCache = new Dictionary<int, Brush>();
+        private static string uiFontFamily = "Consolas";
+        private static FontStyle uiFontStyle = FontStyle.Bold;
+        private static PrivateFontCollection uiPrivateFonts;
+        private static FontFamily uiFontFamilyObject;
         private static GameForm window;
         public static bool IsWindowOpen { get; private set; } = false;
         public static Form Window => window;
@@ -28,7 +43,7 @@ namespace EngineGDI
         private static HashSet<Keys> handledReleasedKeys = new HashSet<Keys>();
 
         private static List<string> debugMessages = new List<string>();
-        private static Font debugFont = new Font("Consolas", 10);
+        private static Font debugFont = new Font("Consolas", 12);
         private static Brush debugBrush = Brushes.White;
         public static void Initialize(string title = "Game", int width = 800, int height = 600, bool fullscreen = false)
         {
@@ -92,6 +107,78 @@ namespace EngineGDI
                 OffsetX = offsetX,
                 OffsetY = offsetY
             });
+        }
+
+        public static void DrawText(string text, float x, float y, int fontSize)
+        {
+            DrawText(text, x, y, fontSize, Color.White);
+        }
+
+        public static void DrawText(string text, float x, float y, int fontSize, Color color)
+        {
+            textQueue.Add(new TextCommand
+            {
+                Text = text,
+                X = x,
+                Y = y,
+                FontSize = fontSize,
+                Color = color
+            });
+        }
+
+        public static void SetUIFont(string fontFamily)
+        {
+            SetUIFont(fontFamily, FontStyle.Bold);
+        }
+
+        public static void SetUIFont(string fontFamily, FontStyle style)
+        {
+            if (string.IsNullOrWhiteSpace(fontFamily)) return;
+            uiFontFamily = fontFamily;
+            uiFontStyle = style;
+            uiFontFamilyObject = null;
+            if (uiPrivateFonts != null)
+            {
+                uiPrivateFonts.Dispose();
+                uiPrivateFonts = null;
+            }
+            foreach (var kv in fontCache)
+                kv.Value.Dispose();
+            fontCache.Clear();
+        }
+
+        public static bool SetUIFontFromFile(string fontFilePath)
+        {
+            return SetUIFontFromFile(fontFilePath, FontStyle.Bold);
+        }
+
+        public static bool SetUIFontFromFile(string fontFilePath, FontStyle style)
+        {
+            if (string.IsNullOrWhiteSpace(fontFilePath)) return false;
+
+            try
+            {
+                uiPrivateFonts?.Dispose();
+                uiPrivateFonts = new PrivateFontCollection();
+                uiPrivateFonts.AddFontFile(fontFilePath);
+
+                if (uiPrivateFonts.Families == null || uiPrivateFonts.Families.Length == 0)
+                    return false;
+
+                uiFontFamilyObject = uiPrivateFonts.Families[0];
+                uiFontFamily = uiFontFamilyObject.Name;
+                uiFontStyle = style;
+
+                foreach (var kv in fontCache)
+                    kv.Value.Dispose();
+                fontCache.Clear();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
         public static void Clear(string sprite, Color color)
         {
@@ -165,6 +252,27 @@ namespace EngineGDI
                         e.Graphics.ResetTransform();
                     }
                 }
+                for (int i = 0; i < textQueue.Count; i++)
+                {
+                    var cmd = textQueue[i];
+                    int fontKey = cmd.FontSize;
+                    if (!fontCache.TryGetValue(fontKey, out var font))
+                    {
+                        font = uiFontFamilyObject != null
+                            ? new Font(uiFontFamilyObject, cmd.FontSize, uiFontStyle)
+                            : new Font(uiFontFamily, cmd.FontSize, uiFontStyle);
+                        fontCache[fontKey] = font;
+                    }
+
+                    int brushKey = cmd.Color.ToArgb();
+                    if (!brushCache.TryGetValue(brushKey, out var brush))
+                    {
+                        brush = new SolidBrush(cmd.Color);
+                        brushCache[brushKey] = brush;
+                    }
+
+                    e.Graphics.DrawString(cmd.Text, font, brush, cmd.X, cmd.Y);
+                }
                 float debugY = 10;
                 foreach (var msg in debugMessages)
                 {
@@ -172,6 +280,7 @@ namespace EngineGDI
                     debugY += debugFont.Height + 2;
                 }
                 drawQueue.Clear();
+                textQueue.Clear();
             }
         }
     }

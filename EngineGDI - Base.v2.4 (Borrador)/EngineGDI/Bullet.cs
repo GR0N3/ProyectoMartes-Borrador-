@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -30,6 +30,9 @@ namespace EngineGDI
         private const float ColliderReferenceScaleX = 0.05f;
         private const float ColliderReferenceScaleY = 0.08f;
 
+        // Constructor:
+        // Inicializa transform, sprite y velocidad.
+        // Nota: en este proyecto las instancias se crean mayormente al inicializar la pool.
         public Bullet(string sprite, float posX, float posY, float velX)
         {
             Transform = new Transform(new Vector2(posX, posY), new Vector2(ColliderReferenceScaleX, ColliderReferenceScaleY));
@@ -38,7 +41,8 @@ namespace EngineGDI
             IsActive = true;
         }
 
-        // Reactiva una bala existente de la pool, reseteando su estado.
+        // Reactiva una bala existente del pool:
+        // setea posición, velocidad y marca IsActive=true para que vuelva a actualizarse/renderizarse.
         public void Activate(float posX, float posY, float velX)
         {
             Transform.Position = new Vector2(posX, posY);
@@ -46,19 +50,23 @@ namespace EngineGDI
             IsActive = true;
         }
 
-        // Desactiva la bala para que no se actualice ni se renderice.
-        // La pool la marca así cuando sale de la pantalla y la devuelve al stack de disponibles.
+        // Desactiva la bala:
+        // al estar inactiva no se mueve ni se dibuja, y queda lista para ser reutilizada por la pool.
         public void Deactivate()
         {
             IsActive = false;
         }
 
+        // Movimiento de la bala:
+        // si está activa, avanza en X usando velX y deltaTime.
         public void Update(float deltaTime)
         {
             if (!IsActive) return;
             posX += velX * deltaTime;
         }
 
+        // Render de la bala:
+        // aplica escala y dibuja el sprite en la posición actual.
         public void Render(float scaleX = 0.1f, float scaleY = 0.1f)
         {
             Transform.Scale = new Vector2(scaleX, scaleY);
@@ -66,6 +74,8 @@ namespace EngineGDI
             if (!IsActive) return;
         }
 
+        // Collider AABB de la bala (sin rotación):
+        // Usa un tamaño base (ColliderSize) y lo ajusta respecto a la escala actual comparándola con la escala de referencia.
         public RectangleF GetCollider()
         {
             float width = ColliderSize.X * (Transform.Scale.X / ColliderReferenceScaleX);

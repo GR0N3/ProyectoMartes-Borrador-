@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace EngineGDI
@@ -9,134 +9,137 @@ namespace EngineGDI
     // Cuando un asteroide muere (termina explosión) o sale por la izquierda, vuelve al pool y se respawnea otro.
     internal class AsteroidPool
     {
-        private readonly Stack<Asteroid> asteroidesDisponibles;
-        private readonly List<Asteroid> asteroidesActivos;
+        private readonly List<Asteroid> pool;
         private readonly AsteroidSpawner[] spawners;
         private readonly Random random;
         private readonly float limiteDespawnX;
         private readonly int asteroidesEnPantalla;
         private readonly float distanciaMinimaSpawnX;
         private readonly float toleranciaLineaY;
+        private readonly string sprite;
 
-        public IReadOnlyList<Asteroid> Asteroids => asteroidesActivos;
+        // Expone el pool completo para que otros sistemas (por ejemplo colisiones) puedan iterarlo.
+        // Nota: la lista incluye activos e inactivos; para lógica de gameplay se filtra con IsAlive / IsDestroying.
+        public IReadOnlyList<Asteroid> Asteroids => pool;
 
 
-        // Crea la pool:
-        // capacity = cantidad total de objetos que existen (memoria)
-        // targetFlying = cantidad simultánea que se intenta mantener "volando" (no destruyéndose)
-        // spawners = carriles/posiciones posibles de spawn
-        // despawnX = cuando el asteroide llega a X <= despawnX se recicla
-        
+        // Crea el pool:
+        // - capacity: cantidad inicial de asteroides en memoria.
+        // - targetFlying: cuántos asteroides se intenta mantener "volando" simultáneamente (vivos y no explotando).
+        // - sprite: sprite idle usado para construir cada asteroide.
+        // - spawners: carriles/posiciones donde pueden aparecer.
+        // - despawnX: límite en X para reciclar (cuando el asteroide llega a esa X por izquierda).
         public AsteroidPool(int capacity, int targetFlying, string sprite, AsteroidSpawner[] spawners, float despawnX = -50f)
         {
             limiteDespawnX = despawnX;
             this.spawners = spawners;
             random = new Random();
             asteroidesEnPantalla = targetFlying;
-            asteroidesDisponibles = new Stack<Asteroid>(capacity);
-            asteroidesActivos = new List<Asteroid>(capacity);
+            pool = new List<Asteroid>(capacity);
             distanciaMinimaSpawnX = 120f;
             toleranciaLineaY = 0.01f;
+            this.sprite = sprite;
 
             for (int i = 0; i < capacity; i++)
             {
                 var asteroide = new Asteroid(sprite, 0f, 0f, 0f);
                 asteroide.Deactivate();
-                asteroidesDisponibles.Push(asteroide);
+                pool.Add(asteroide);
             }
 
             SpawnHastaCantidadObjetivo();
         }
 
 
-        // Actualiza:
-        // cooldowns de spawners
-        // estado/movimiento/animación de asteroides activos
-        // recicla los que murieron o salieron de pantalla y luego repone hasta llegar a la cantidad objetivo en pantalla
- 
+        // Loop de actualización del pool:
+        // 1) actualiza el cooldown de cada spawner
+        // 2) actualiza cada asteroide activo (movimiento/animación)
+        // 3) si un asteroide sale del área (despawnX), se desactiva para que pueda ser reutilizado
+        // 4) repone la cantidad objetivo en pantalla (targetFlying)
         public void Update(float deltaTime)
         {
             for (int i = 0; i < spawners.Length; i++)
                 spawners[i].Update(deltaTime);
 
-            for (int i = asteroidesActivos.Count - 1; i >= 0; i--)
+            for (int i = 0; i < pool.Count; i++)
             {
-                var asteroide = asteroidesActivos[i];
+                var asteroide = pool[i];
+                if (!asteroide.IsAlive) continue;
 
                 asteroide.Update(deltaTime);
 
-                if (!asteroide.IsAlive)
-                {
-                    DevolverAlPool(i);
-                    continue;
-                }
-
                 if (!asteroide.IsDestroying && asteroide.posX <= limiteDespawnX)
-                {
-                    DevolverAlPool(i);
-                    continue;
-                }
+                    asteroide.Deactivate();
             }
 
             SpawnHastaCantidadObjetivo();
         }
 
 
-        // Renderiza todos los asteroides vivos de la lista activa.
+        // Renderiza únicamente los asteroides vivos.
+        // scaleX/scaleY controlan el tamaño con el que se dibuja el sprite del asteroide.
         public void Render(float scaleX = 0.035f, float scaleY = 0.035f)
         {
-            for (int i = 0; i < asteroidesActivos.Count; i++)
+            for (int i = 0; i < pool.Count; i++)
             {
-                var asteroide = asteroidesActivos[i];
+                var asteroide = pool[i];
                 if (asteroide.IsAlive)
                     asteroide.Render(scaleX, scaleY);
             }
         }
 
-        // Quita un asteroide de la lista activa y lo devuelve al stack de disponibles.
-        // Se usa cuando termina su explosión o cuando se va por fuera de pantalla.
-        private void DevolverAlPool(int indiceActivo)
-        {
-            var asteroide = asteroidesActivos[indiceActivo];
-            asteroidesActivos.RemoveAt(indiceActivo);
-            asteroide.Deactivate();
-            asteroidesDisponibles.Push(asteroide);
-        }
-
-        // Mantiene la cantidad objetivo en pantalla:
-        // cuenta cuántos están "volando" (vivos y no destruyéndose) y spawnea desde disponibles hasta completar el objetivo
+        // Mantiene la cantidad objetivo de asteroides en pantalla:
+        // - cuenta cuántos están "volando" (IsAlive && !IsDestroying)
+        // - mientras falten, pide un spawner disponible y activa (respawn) un asteroide del pool
         private void SpawnHastaCantidadObjetivo()
         {
             int asteroidesVolando = 0;
-            for (int i = 0; i < asteroidesActivos.Count; i++)
+            for (int i = 0; i < pool.Count; i++)
             {
-                var asteroide = asteroidesActivos[i];
+                var asteroide = pool[i];
                 if (asteroide.IsAlive && !asteroide.IsDestroying)
                     asteroidesVolando++;
             }
 
-            while (asteroidesVolando < asteroidesEnPantalla && asteroidesDisponibles.Count > 0)
+            while (asteroidesVolando < asteroidesEnPantalla)
             {
                 var spawner = ElegirSpawnerDisponible();
                 if (spawner == null) break;
 
-                var asteroide = asteroidesDisponibles.Pop();
+                var asteroide = GetAsteroideDisponible();
                 if (!spawner.TrySpawn(asteroide, random))
                 {
                     asteroide.Deactivate();
-                    asteroidesDisponibles.Push(asteroide);
                     break;
                 }
 
-                asteroidesActivos.Add(asteroide);
                 asteroidesVolando++;
             }
         }
 
+        // Devuelve un asteroide reutilizable:
+        // - si hay uno inactivo en el pool, lo devuelve
+        // - si todos están activos, crea uno nuevo, lo agrega y lo devuelve (pool dinámico)
+        private Asteroid GetAsteroideDisponible()
+        {
+            for (int i = 0; i < pool.Count; i++)
+            {
+                var a = pool[i];
+                if (!a.IsAlive)
+                    return a;
+            }
 
-        // Elige un spawner que:
-        // No esté en cooldown y no tenga otro asteroide demasiado cerca en su misma línea (Y)
-        // Si ninguno sirve, devuelve null.
+            var nuevo = new Asteroid(sprite, 0f, 0f, 0f);
+            nuevo.Deactivate();
+            pool.Add(nuevo);
+            return nuevo;
+        }
+
+
+        // Elige un spawner válido para generar un nuevo asteroide:
+        // - no debe estar en cooldown
+        // - no debe existir otro asteroide activo en ese mismo carril (mismo Y) demasiado cerca del punto de spawn
+        // Devuelve null si ninguno cumple, para evitar spawns injustos (encima de otro).
         private AsteroidSpawner ElegirSpawnerDisponible()
         {
             int inicio = random.Next(spawners.Length);
@@ -154,16 +157,17 @@ namespace EngineGDI
             return null;
         }
 
-        // Devuelve true si ya existe un asteroide en el mismo carril (mismo Y del spawner) y todavía está cerca del punto de spawn (para evitar spawnear uno encima del otro).
+        // Devuelve true si ya existe un asteroide en el mismo carril (mismo Y del spawner)
+        // y todavía está lo suficientemente cerca del punto de spawn como para que el nuevo aparezca encima.
         private bool HayAsteroideEnLinea(AsteroidSpawner spawner)
         {
             float spawnX = spawner.SpawnX;
             float spawnY = spawner.SpawnY;
             float limiteX = spawnX - distanciaMinimaSpawnX;
 
-            for (int i = 0; i < asteroidesActivos.Count; i++)
+            for (int i = 0; i < pool.Count; i++)
             {
-                var a = asteroidesActivos[i];
+                var a = pool[i];
                 if (!a.IsAlive) continue;
 
                 float dy = a.posY - spawnY;
