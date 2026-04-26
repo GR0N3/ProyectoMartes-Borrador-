@@ -28,3 +28,14 @@ c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Releas
 c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Textures\UI\HUD\Black_Rect.png
 c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Textures\UI\HUD\Blue_Rect.png
 c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Fonts\pixel_lcd_7.ttf
+c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Textures\BackGrounds\Background.png
+c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Textures\UI\GameOver\GameOverTable.png
+c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Textures\UI\GameOver\QUITButtom.png
+c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Textures\UI\GameOver\RetryButtom.png
+c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Textures\UI\HUD\Estrella.png
+c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Textures\UI\Menu\BackGround\FondoMenu.png
+c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Textures\UI\Menu\Buttons\QUITButtom.png
+c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Textures\UI\Menu\Buttons\STARTButtom.png
+c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Textures\UI\Pause\ContinueButtom.png
+c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Textures\UI\Pause\PauseTable.png
+c:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Release\Textures\UI\Pause\QUITButtom.png

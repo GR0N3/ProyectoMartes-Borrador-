@@ -31,7 +31,7 @@ namespace EngineGDI
             cooldownRestante = 0f;
         }
 
-        /// Actualiza el cooldown del spawner.
+        // Actualiza el cooldown del spawner.
         public void Update(float deltaTime)
         {
             if (cooldownRestante > 0f)

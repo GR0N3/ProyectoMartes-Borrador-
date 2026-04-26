@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.Media;
 using System.Windows.Forms;
@@ -227,10 +228,16 @@ namespace EngineGDI
             public GameForm()
             {
                 DoubleBuffered = true;
+                SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
+                UpdateStyles();
             }
             protected override void OnPaint(PaintEventArgs e)
             {
                 base.OnPaint(e);
+                e.Graphics.CompositingQuality = CompositingQuality.HighSpeed;
+                e.Graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+                e.Graphics.SmoothingMode = SmoothingMode.None;
+                e.Graphics.PixelOffsetMode = PixelOffsetMode.HighSpeed;
                 e.Graphics.Clear(ClearColor);
                 foreach (var cmd in drawQueue)
                 {

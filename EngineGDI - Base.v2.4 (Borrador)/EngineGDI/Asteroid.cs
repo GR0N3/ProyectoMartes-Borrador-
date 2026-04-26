@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management.Instrumentation;
@@ -95,10 +95,10 @@ namespace EngineGDI
                     IsAlive = false;
             }
 
-            currentAnimation.Update();
+            currentAnimation.Update(deltaTime);
         }
 
-        /// Dibuja el frame actual de la animación en la posición del Transform.
+        // Dibuja el frame actual de la animación en la posición del Transform.
         public void Render(float scaleX = 0.1f, float scaleY = 0.1f)
         {
             Transform.Scale = new Vector2(scaleX, scaleY);

@@ -49,12 +49,12 @@ namespace EngineGDI
         }
 
         // Avanza la animación:
-        // - acumula deltaTime (se usa Program.deltaTime)
+        // - acumula deltaTime
         // - cuando supera "speed" avanza de frame
         // - si llega al final, hace loop o se queda en el último frame según isLoopEnabled
-        public void Update() 
+        public void Update(float deltaTime) 
         {
-            currentAnimationTime += Program.deltaTime;
+            currentAnimationTime += deltaTime;
 
             if (currentAnimationTime >= speed) 
             {

@@ -1,5 +1,7 @@
 using System;
+using System.Diagnostics;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 
@@ -7,52 +9,39 @@ namespace EngineGDI
 {
     static class Program
     {
-        // Delta time
+        // Delta time:
+        // tiempo (en segundos) transcurrido entre un frame y el siguiente.
         public static float deltaTime;
-        static DateTime lastFrameTime = DateTime.Now;
 
+        // Tiempo (en segundos) en el que se midió el último frame.
+        // Se usa con Stopwatch para calcular deltaTime con más precisión que DateTime.
+        static double lastFrameTimeSeconds = 0.0;
+
+        // Resolución de la ventana.
         public static int SCREEN_WIDTH = 1024;
         public static int SCREEN_HEIGHT = 768;
-        private static Player player;
-        private static BulletPool bulletPool;
-        private static BackgroundManager backgroundManager;
-        private static AsteroidPool asteroidPool;
-        private static UIManager uiManager;
 
-        // Tiempo mínimo entre disparos (en segundos)
-        private static float cadencia = 0.3f;
-        private static float tiempoUltimoDisparo = 0f;
+        // Duración objetivo de un frame a 60 FPS (~0.016666... segundos).
+        static readonly double targetFrameSeconds = 1.0 / 60.0;
 
-        /// <summary>
-        /// Punto de entrada principal para la aplicación.
-        /// </summary>
+        // Reloj de alta resolución para medir tiempos entre frames.
+        static readonly Stopwatch stopwatch = Stopwatch.StartNew();
+
+        // Punto de entrada principal para la aplicación.
+        // Inicializa el motor y delega el loop principal al SceneManager.
         [STAThread]
         static void Main()
         {
-
             Engine.Initialize("IERVA ENGINE", SCREEN_WIDTH, SCREEN_HEIGHT, false);
 
             // Carga una fuente desde archivo para los textos de UI.
             Engine.SetUIFontFromFile("Fonts/pixel_lcd_7.ttf", FontStyle.Regular);
 
-            // Inicializa UI y player. El player se reposiciona para quedar centrado en el área jugable (debajo de la HUD).
-            uiManager = new UIManager(SCREEN_WIDTH);
-            player = new Player("Textures/Player/Player.png", 20, SCREEN_HEIGHT / 2, 200f);
-            CenterPlayerInPlayableArea();
+            // Comienza en el menú principal.
+            SceneManager.Instance.ChangeScene(new MainMenu(SCREEN_WIDTH, SCREEN_HEIGHT));
 
-            // Pool de balas:
-            // - 40 = cantidad máxima de balas simultáneas
-            // - 500 = velocidad en X de cada bala
-            bulletPool = new BulletPool("Textures/Objects/Bala/Bullet.png", 10, 500f);
-            backgroundManager = new BackgroundManager(SCREEN_WIDTH);
-
-            // Pool de asteroides con 5 spawners a lo largo del eje Y, evitando la zona de HUD.
-            asteroidPool = AsteroidSpawner.CrearPoolCon5Spawners(
-                anchoPantalla: SCREEN_WIDTH,
-                altoPantalla: SCREEN_HEIGHT,
-                spriteAsteroide: "Textures/Objects/Asteroide/Asteroid_idle.png",
-                yMin: uiManager.HudHeight + 10f);
-
+            // Inicializa el "inicio del frame" para la primera medición de deltaTime.
+            lastFrameTimeSeconds = stopwatch.Elapsed.TotalSeconds;
 
             while (Engine.IsWindowOpen)
             {
@@ -62,118 +51,59 @@ namespace EngineGDI
 
                 calcDeltatime();
 
-                Input();
-                Update();
-                Render();
+                SceneManager.Instance.Input();
+                SceneManager.Instance.Update(deltaTime);
+                SceneManager.Instance.Render();
 
 
                 #region Engine Window Control
                 Engine.Window.Invalidate();
                 #endregion
+
+                // Limita el loop para no correr más rápido que 60 FPS.
+                // Nota: si el render/lógica tardan más que targetFrameSeconds, no se puede sostener 60 y el juego bajará de FPS igual.
+                LimitTo60Fps();
             }
         }
 
-        //Calculo de DeltaTime
+        // Calcula el deltaTime (segundos entre frames) usando el reloj del sistema.
         static void calcDeltatime()
         {
-            TimeSpan deltaSpan = DateTime.Now - lastFrameTime;
-            deltaTime = (float)deltaSpan.TotalSeconds;
-            lastFrameTime = DateTime.Now;
+            double nowSeconds = stopwatch.Elapsed.TotalSeconds;
+            double frameSeconds = nowSeconds - lastFrameTimeSeconds;
+
+            // Protección por si el reloj diera un valor extraño (no debería pasar, pero evita números inválidos).
+            if (frameSeconds < 0.0) frameSeconds = 0.0;
+
+            // Evita saltos gigantes de deltaTime (por ejemplo al minimizar la ventana o si el proceso se frena un rato).
+            // Con esto, la física/movimiento no "teletransporta" objetos al volver.
+            if (frameSeconds > 0.25) frameSeconds = 0.25;
+
+            deltaTime = (float)frameSeconds;
+            lastFrameTimeSeconds = nowSeconds;
         }
 
-
-        static void Input()
+        static void LimitTo60Fps()
         {
-            player.Input(deltaTime);
+            double nowSeconds = stopwatch.Elapsed.TotalSeconds;
 
-            tiempoUltimoDisparo -= deltaTime;
+            // Tiempo transcurrido desde el inicio del frame actual.
+            double elapsedSinceFrameStart = nowSeconds - lastFrameTimeSeconds;
 
-            if (Engine.IsKeyDown(Keys.Space) && tiempoUltimoDisparo <= 0f)
+            // Cuánto falta para completar 1 frame de 60 FPS.
+            double remaining = targetFrameSeconds - elapsedSinceFrameStart;
+
+            if (remaining <= 0.0) return;
+
+            // Duerme lo que falta en milisegundos (aprox). Sleep no es exacto al 100%, por eso luego se ajusta con busy-wait.
+            int sleepMs = (int)(remaining * 1000.0);
+            if (sleepMs > 0)
+                Thread.Sleep(sleepMs);
+
+            // Ajuste fino: espera activa hasta que se cumpla exactamente el targetFrameSeconds.
+            while (stopwatch.Elapsed.TotalSeconds - lastFrameTimeSeconds < targetFrameSeconds)
             {
-                // Spawnea la bala cercana al player (ajuste manual de offsets).
-                float spawnX = player.posX + 100f;
-                float spawnY = player.posY + 10f;
-
-                // Dispara usando la pool (reutiliza balas).
-                bulletPool.TrySpawn(spawnX, spawnY);
-                tiempoUltimoDisparo = cadencia;
             }
-        }
-
-        static void Update()
-        {
-            backgroundManager.Update(deltaTime);
-            player.Update(deltaTime, uiManager.HudHeight, SCREEN_HEIGHT);
-
-            // Se actualizan balas antes que colisiones para usar posiciones recientes.
-            bulletPool.Update(deltaTime, SCREEN_WIDTH);
-            asteroidPool.Update(deltaTime);
-            if (bulletPool.TryHitAsteroids(asteroidPool.Asteroids))
-                uiManager.AddScore(100);
-
-            // Si el player colisiona con un asteroide:
-            // - desactiva el asteroide (desaparece)
-            // - deshabilita collider del player por 0.5s (evita colisiones múltiples)
-            // - aplica daño/vida (con blink)
-            var collidingAsteroid = GetCollidingAsteroid();
-            if (collidingAsteroid != null)
-            {
-                collidingAsteroid.Deactivate();
-                player.DisableCollider(0.5f);
-
-                if (player.TryTakeDamage(0.5f))
-                    uiManager.RemoveLife(1);
-            }
-        }
-
-        // Renderiza el frame:
-        // orden de capas: fondo → player/objetos → UI encima.
-        static void Render()
-        {
-            backgroundManager.Render();
-            player.Render();
-            asteroidPool.Render();
-            bulletPool.Render();
-            uiManager.Render();
-        }
-
-        // Detecta colisión player ↔ asteroides:
-        // Recorre el pool y devuelve el primer asteroide con el que colisiona (si existe).
-        static Asteroid GetCollidingAsteroid()
-        {
-            RectangleF playerCollider = player.GetCollider();
-            if (playerCollider.IsEmpty) return null;
-
-            var asteroids = asteroidPool.Asteroids;
-            for (int i = 0; i < asteroids.Count; i++)
-            {
-                var a = asteroids[i];
-                if (a == null || !a.IsAlive || a.IsDestroying) continue;
-                if (IsBoxColliding(playerCollider, a.GetCollider()))
-                    return a;
-            }
-
-            return null;
-        }
-
-        // Colisión AABB (Axis-Aligned Bounding Box) entre 2 rectángulos sin rotación.
-        static bool IsBoxColliding(RectangleF a, RectangleF b)
-        {
-            return a.Left < b.Right &&
-                   a.Right > b.Left &&
-                   a.Top < b.Bottom &&
-                   a.Bottom > b.Top;
-        }
-
-        // Centra el player en el área jugable (debajo de la HUD):
-        // - minY = HudHeight
-        // - calcula altura jugable y ubica al player en el centro vertical
-        static void CenterPlayerInPlayableArea()
-        {
-            float minY = uiManager.HudHeight;
-            float playerHeight = player.SpriteSize.Y * player.Transform.Scale.Y * player.ColliderScale.Y;
-            float playableHeight = SCREEN_HEIGHT - minY;
-            player.posY = minY + (playableHeight - playerHeight) / 2f;
         }
 
     }

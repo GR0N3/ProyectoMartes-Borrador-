@@ -12,7 +12,7 @@ namespace EngineGDI
         private float screenWidth;
         private float velocidadFondo;
         private float velocidadEstrellas;
-        private float fondoLoopDistanciaX;
+        private int fondoLoopDistanciaX;
 
         private float fondoX;
         private float estrellasX;
@@ -26,11 +26,11 @@ namespace EngineGDI
         // - fondoLoopDistanciaX: ancho real del sprite de fondo para el loop (ej: 3072).
         public BackgroundManager(
             float screenWidth,
-            string fondoSprite = "Textures/BackGrounds/Fondo.png",
+            string fondoSprite = "Textures/BackGrounds/Background.png",
             string estrellasSprite = "Textures/BackGrounds/Estrellas.png",
             float velocidadFondo = 30f,
             float velocidadEstrellas = 80f,
-            float fondoLoopDistanciaX = 3072f)
+            int fondoLoopDistanciaX = 19200)
         {
             this.screenWidth = screenWidth;
             this.fondoSprite = fondoSprite;
