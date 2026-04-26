@@ -106,6 +106,8 @@ namespace EngineGDI
 
             if (Engine.OnKeyDown(Keys.Enter))
             {
+                // Feedback de UI: la pantalla de game over usa el mismo SFX de botón al confirmar.
+                AudioManager.Instance.PlayButtonEffect();
                 if (selectedIndex == 0)
                     RequestedAction = GameOverAction.Retry;
                 else

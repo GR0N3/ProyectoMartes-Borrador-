@@ -42,6 +42,9 @@ namespace EngineGDI
                 altoPantalla: screenHeight,
                 spriteAsteroide: "Textures/Objects/Asteroide/Asteroid_idle.png",
                 yMin: uiManager.HudHeight + 10f);
+
+            // Música del gameplay: se reproduce en loop mientras esta escena esté activa.
+            AudioManager.Instance.PlayGameMusic();
         }
 
         // Procesa input según el estado:
@@ -77,6 +80,8 @@ namespace EngineGDI
                 float spawnX = player.posX + 100f;
                 float spawnY = player.posY + 10f;
                 bulletPool.TrySpawn(spawnX, spawnY);
+                // Feedback al disparar: efecto de láser.
+                AudioManager.Instance.PlayLaserEffect();
                 tiempoUltimoDisparo = cadencia;
             }
         }
@@ -107,7 +112,11 @@ namespace EngineGDI
             asteroidPool.Update(gameDeltaTime);
 
             if (bulletPool.TryHitAsteroids(asteroidPool.Asteroids))
+            {
+                // Cuando una bala impacta un asteroide, reproducimos el SFX de hit.
+                AudioManager.Instance.PlayHitEffect();
                 uiManager.AddScore(100);
+            }
 
             var collidingAsteroid = GetCollidingAsteroid();
             if (collidingAsteroid != null)

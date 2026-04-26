@@ -62,6 +62,9 @@ namespace EngineGDI
                 starScale = desiredStarHeight / starImg.Height;
                 starOffsetFromButton = (desiredButtonWidth * 0.5f) + (starImg.Width * starScale * 0.7f);
             }
+
+            // Música del menú: se reproduce en loop mientras esta escena esté activa.
+            AudioManager.Instance.PlayMenuMusic();
         }
 
         // Maneja la navegación (↑/↓ o W/S) y la confirmación (Enter).
@@ -74,6 +77,8 @@ namespace EngineGDI
 
             if (Engine.OnKeyDown(Keys.Enter))
             {
+                // Feedback de UI: al confirmar con Enter se reproduce el efecto de botón.
+                AudioManager.Instance.PlayButtonEffect();
                 if (selectedIndex == 0)
                     SceneManager.Instance.ChangeScene(new Game(screenWidth, screenHeight));
                 else

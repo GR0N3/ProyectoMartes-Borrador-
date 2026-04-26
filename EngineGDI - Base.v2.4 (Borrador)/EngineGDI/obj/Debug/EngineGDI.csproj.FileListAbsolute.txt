@@ -293,3 +293,8 @@ C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\
 C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\UI\Pause\ContinueButtom.png
 C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\UI\Pause\PauseTable.png
 C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\UI\Pause\QUITButtom.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Sounds\Buttom_Effect.wav
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Sounds\Hit_Effect.wav
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Sounds\Laser_Effect.wav
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Sounds\Micrology.wav
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Sounds\Rivals8Bit.wav

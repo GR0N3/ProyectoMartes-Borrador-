@@ -106,6 +106,8 @@ namespace EngineGDI
 
             if (Engine.OnKeyDown(Keys.Enter))
             {
+                // Feedback de UI: el menú de pausa usa el mismo SFX de botón al confirmar.
+                AudioManager.Instance.PlayButtonEffect();
                 if (selectedIndex == 0)
                     RequestedAction = PauseAction.Continue;
                 else
