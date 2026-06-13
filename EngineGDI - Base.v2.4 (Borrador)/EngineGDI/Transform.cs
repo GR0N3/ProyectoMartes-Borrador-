@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +10,7 @@ namespace EngineGDI
     {
         public Vector2 Position;
         public Vector2 Scale;
-        public float Rotation;
+        public Vector2 Rotation; // X almacena el ángulo en grados, Y reservado
 
         public Transform()
             : this(Vector2.Zero, Vector2.One)
@@ -26,7 +26,7 @@ namespace EngineGDI
         {
             Position = position;
             Scale = scale;
-            Rotation = 0f;
+            Rotation = Vector2.Zero;
         }
     }
 }

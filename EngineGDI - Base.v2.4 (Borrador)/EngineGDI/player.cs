@@ -13,11 +13,16 @@ namespace EngineGDI
     // - Se mantiene dentro del área jugable (no entra en la HUD)
     // - Tiene un estado de "parpadeo" (invulnerabilidad visual) al recibir daño
     // - Puede desactivar temporalmente su collider para evitar colisiones repetidas
-    public class Player
+    public class Player : ICollidable, IDamageable, IShooter
     {
         public Transform Transform;
         public Vector2 SpriteSize { get; private set; }
         public Vector2 ColliderScale { get; set; } = new Vector2(1.2f, 1.2f);
+        public float Vida { get; private set; } = 1f;
+
+        public event Action<int> OnLifeLost;
+
+        private readonly Renderer renderer;
         private float colliderDisabledTimeRemaining = 0f;
         private float blinkTimeRemaining = 0f;
         private float blinkToggleTimer = 0f;
@@ -37,6 +42,7 @@ namespace EngineGDI
 
         private float speed;
         private string sprite;
+        private Func<float, float, bool> spawnBullet;
 
         // Velocidad actual en Y (se acumula y amortigua para lograr suavidad)
         private float velY = 0f;
@@ -66,6 +72,22 @@ namespace EngineGDI
 
             using (var img = Image.FromFile(sprite))
                 SpriteSize = new Vector2(img.Width, img.Height);
+
+            renderer = new Renderer(sprite, SpriteSize);
+        }
+
+        public void BindShooting(Func<float, float, bool> spawnBulletMethod)
+        {
+            spawnBullet = spawnBulletMethod;
+        }
+
+        public void Shoot()
+        {
+            if (spawnBullet == null) return;
+
+            float spawnX = posX + 100f;
+            float spawnY = posY + 10f;
+            spawnBullet(spawnX, spawnY);
         }
 
         // Input del player:
@@ -133,7 +155,7 @@ namespace EngineGDI
         {
             if (!isVisible) return;
             Transform.Scale = new Vector2(scaleX, scaleY);
-            Engine.Draw(sprite, Transform.Position.X, Transform.Position.Y, Transform.Scale.X, Transform.Scale.Y, Transform.Rotation);
+            renderer.Draw(Transform, Transform.Rotation.X);
         }
 
         // Collider del player:
@@ -163,10 +185,16 @@ namespace EngineGDI
                 colliderDisabledTimeRemaining = seconds;
         }
 
+        public void TakeDamage(float amount)
+        {
+            if (!TryTakeDamage()) return;
+            OnLifeLost?.Invoke((int)Math.Max(1f, amount));
+        }
+
         // Intenta aplicar daño:
         // - si ya está en blink, no permite volver a aplicar daño (evita spam)
         // - si puede, inicia el blink por blinkSeconds y devuelve true
-        public bool TryTakeDamage(float blinkSeconds = 1f)
+        public bool TryTakeDamage(float blinkSeconds = 0.5f)
         {
             if (blinkTimeRemaining > 0f) return false;
             blinkTimeRemaining = blinkSeconds;

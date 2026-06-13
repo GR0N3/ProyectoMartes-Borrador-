@@ -53,7 +53,7 @@ namespace EngineGDI
             sfxPerEffectVolume[HitEffectPath] = 1.0;
 
             musicPerTrackVolume[MenuMusicPath] = 2.0;
-            musicPerTrackVolume[GameMusicPath] = 0.5;
+            musicPerTrackVolume[GameMusicPath] = 0.05;
         }
 
         public void SetMusicVolume(double volume01)

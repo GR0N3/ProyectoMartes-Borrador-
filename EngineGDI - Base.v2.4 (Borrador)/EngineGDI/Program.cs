@@ -21,7 +21,7 @@ namespace EngineGDI
         public static int SCREEN_WIDTH = 1024;
         public static int SCREEN_HEIGHT = 768;
 
-        // Duración objetivo de un frame a 60 FPS (~0.016666... segundos).
+        // Duración objetivo de un frame a 60 FPS (0.016666... segundos).
         static readonly double targetFrameSeconds = 1.0 / 60.0;
 
         // Reloj de alta resolución para medir tiempos entre frames.

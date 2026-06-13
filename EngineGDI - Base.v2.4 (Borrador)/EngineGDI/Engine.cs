@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -238,7 +238,38 @@ namespace EngineGDI
                 e.Graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
                 e.Graphics.SmoothingMode = SmoothingMode.None;
                 e.Graphics.PixelOffsetMode = PixelOffsetMode.HighSpeed;
-                e.Graphics.Clear(ClearColor);
+
+                // --- Lógica de Relación de Aspecto (Letterbox/Pillarbox) ---
+                float targetWidth = Program.SCREEN_WIDTH;
+                float targetHeight = Program.SCREEN_HEIGHT;
+
+                float windowWidth = this.ClientSize.Width;
+                float windowHeight = this.ClientSize.Height;
+
+                float scaleX = windowWidth / targetWidth;
+                float scaleY = windowHeight / targetHeight;
+                float scale = Math.Min(scaleX, scaleY);
+
+                float offsetX = (windowWidth - targetWidth * scale) / 2f;
+                float offsetY = (windowHeight - targetHeight * scale) / 2f;
+
+                // Limpiar toda la ventana real con negro (para las barras de borde)
+                e.Graphics.Clear(Color.Black);
+
+                // Guardar estado global y aplicar transformaciones
+                var globalState = e.Graphics.Save();
+                e.Graphics.TranslateTransform(offsetX, offsetY);
+                e.Graphics.ScaleTransform(scale, scale);
+
+                // Limitar la renderización a la resolución virtual del juego
+                e.Graphics.SetClip(new RectangleF(0f, 0f, targetWidth, targetHeight));
+
+                // Rellenar el fondo de la pantalla virtual con el ClearColor
+                using (var brush = new SolidBrush(ClearColor))
+                {
+                    e.Graphics.FillRectangle(brush, 0f, 0f, targetWidth, targetHeight);
+                }
+
                 foreach (var cmd in drawQueue)
                 {
                     if (textures.ContainsKey(cmd.TexturePath))
@@ -246,7 +277,9 @@ namespace EngineGDI
                         var img = textures[cmd.TexturePath];
                         float width = img.Width * cmd.ScaleX;
                         float height = img.Height * cmd.ScaleY;
-                        // Transformación: traslación al punto, rotación, luego dibujar con offset
+                        
+                        // Guardar estado local para no perder la matriz de escala/letterbox global
+                        var localState = e.Graphics.Save();
                         e.Graphics.TranslateTransform(cmd.X, cmd.Y);
                         e.Graphics.RotateTransform(cmd.Angle);
                         e.Graphics.DrawImage(
@@ -256,7 +289,7 @@ namespace EngineGDI
                             width,
                             height
                         );
-                        e.Graphics.ResetTransform();
+                        e.Graphics.Restore(localState);
                     }
                 }
                 for (int i = 0; i < textQueue.Count; i++)
@@ -286,6 +319,10 @@ namespace EngineGDI
                     e.Graphics.DrawString(msg, debugFont, debugBrush, 10, debugY);
                     debugY += debugFont.Height + 2;
                 }
+
+                // Restaurar el estado global de dibujo
+                e.Graphics.Restore(globalState);
+
                 drawQueue.Clear();
                 textQueue.Clear();
             }

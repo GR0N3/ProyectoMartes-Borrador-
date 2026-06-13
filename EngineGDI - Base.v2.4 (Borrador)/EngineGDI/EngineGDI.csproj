@@ -50,11 +50,21 @@
   <ItemGroup>
     <Compile Include="Animation.cs" />
     <Compile Include="Asteroid.cs" />
-    <Compile Include="AsteroidPool.cs" />
-    <Compile Include="AsteroidSpawner.cs" />
+    <Compile Include="EnemyEntity.cs" />
+    <Compile Include="EnemySpawner.cs" />
+    <Compile Include="EnemyPool.cs" />
+    <Compile Include="EnemyType.cs" />
+    <Compile Include="EnemyFactory.cs" />
+    <Compile Include="ICollidable.cs" />
+    <Compile Include="IDamageable.cs" />
+    <Compile Include="IShooter.cs" />
+    <Compile Include="ObjectPool.cs" />
+    <Compile Include="NaveEnemiga.cs" />
+    <Compile Include="BulletEntity.cs" />
+    <Compile Include="PlayerBullet.cs" />
+    <Compile Include="EnemyBullet.cs" />
     <Compile Include="AudioManager.cs" />
     <Compile Include="BackgroundManager.cs" />
-    <Compile Include="Bullet.cs" />
     <Compile Include="BulletPool.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Game.cs" />
@@ -64,6 +74,7 @@
     <Compile Include="PauseController.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Renderer.cs" />
     <Compile Include="SceneManager.cs" />
     <Compile Include="UIManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -143,6 +154,12 @@
     <Content Include="Textures\Anims\AsteroidDestroy\5.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Textures\Anims\EnemyDestroy\0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\Anims\EnemyDestroy\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Textures\BackGrounds\Background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -150,6 +167,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\BackGrounds\Estrellas.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\Enemy\NaveEnemiga.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\UI\GameOver\GameOverTable.png">

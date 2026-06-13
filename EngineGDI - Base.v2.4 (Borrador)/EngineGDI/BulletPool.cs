@@ -1,136 +1,151 @@
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 
 namespace EngineGDI
 {
+    public enum BulletType
+    {
+        Player,
+        Enemy
+    }
+
     public class BulletPool
     {
-        private readonly List<Bullet> pool;
+        private readonly Dictionary<BulletType, ObjectPool<BulletEntity>> pools;
+        private readonly List<BulletEntity> activePlayerBullets;
+        private readonly List<BulletEntity> activeEnemyBullets;
 
-        private readonly string sprite;
-        private readonly float bulletSpeed;
+        private readonly string playerBulletSprite;
+        private readonly string enemyBulletSprite;
+        private readonly float playerBulletSpeed;
+        private readonly float enemyBulletSpeed;
 
-        // Crea el pool de balas preinstanciando "poolSize" balas inactivas.
-        // sprite = ruta del sprite de la bala.
-        // poolSize = cantidad inicial de balas en memoria.
-        // bulletSpeed = velocidad horizontal que tendrán las balas al activarse.
-        public BulletPool(string sprite, int poolSize, float bulletSpeed)
+        public IReadOnlyList<BulletEntity> ActivePlayerBullets => activePlayerBullets;
+        public IReadOnlyList<BulletEntity> ActiveEnemyBullets => activeEnemyBullets;
+
+        public BulletPool(string playerSprite, string enemySprite, int poolSize, float playerSpeed, float enemySpeed)
         {
-            this.sprite = sprite;
-            this.bulletSpeed = bulletSpeed;
-            pool = new List<Bullet>(poolSize);
+            this.playerBulletSprite = playerSprite;
+            this.enemyBulletSprite = enemySprite;
+            this.playerBulletSpeed = playerSpeed;
+            this.enemyBulletSpeed = enemySpeed;
 
-            for (int i = 0; i < poolSize; i++)
-            {
-                var b = new Bullet(sprite, 0f, 0f, 0f);
-                b.Deactivate();
-                pool.Add(b);
-            }
+            pools = new Dictionary<BulletType, ObjectPool<BulletEntity>>();
+            activePlayerBullets = new List<BulletEntity>();
+            activeEnemyBullets = new List<BulletEntity>();
+
+            // Inicializar pools genéricas
+            pools[BulletType.Player] = new ObjectPool<BulletEntity>(
+                poolSize,
+                () => new PlayerBullet(playerSprite, 0f, 0f, 0f),
+                b => b.IsActive,
+                b => b.Deactivate()
+            );
+
+            pools[BulletType.Enemy] = new ObjectPool<BulletEntity>(
+                poolSize,
+                () => new EnemyBullet(enemySprite, 0f, 0f, 0f),
+                b => b.IsActive,
+                b => b.Deactivate()
+            );
         }
 
-        // Devuelve una bala lista para usar:
-        // - Si existe una bala inactiva, la reutiliza.
-        // - Si todas están activas, crea una nueva y la agrega al pool (pool dinámico).
-        public Bullet GetBullet()
+        // Obtiene o crea una bala del pool correspondiente
+        private BulletEntity GetBullet(BulletType type)
         {
-            for (int i = 0; i < pool.Count; i++)
-            {
-                var b = pool[i];
-                if (!b.IsActive)
-                    return b;
-            }
-
-            var newBullet = new Bullet(sprite, 0f, 0f, 0f);
-            newBullet.Deactivate();
-            pool.Add(newBullet);
-            return newBullet;
+            return pools[type].Get();
         }
 
-        // Intenta spawnear/disparar una bala:
-        // Obtiene una bala del pool, la activa en (x,y) y le asigna la velocidad.
-        // En este modelo siempre devuelve true porque el pool puede crecer si es necesario.
-        public bool TrySpawn(float x, float y)
+        // Intenta spawnear/activar una bala
+        public bool TrySpawn(BulletType type, float x, float y)
         {
-            var b = GetBullet();
-            b.Activate(x, y, bulletSpeed);
+            var b = GetBullet(type);
+            float speed = (type == BulletType.Player) ? playerBulletSpeed : enemyBulletSpeed;
+            b.Activate(x, y, speed);
+
+            if (type == BulletType.Player)
+                activePlayerBullets.Add(b);
+            else
+                activeEnemyBullets.Add(b);
+
             return true;
         }
 
-        // Actualiza el movimiento de todas las balas activas.
-        // Si una bala sobrepasa maxX, se desactiva para que vuelva a estar disponible en el pool.
-        public void Update(float deltaTime, float maxX)
+        // Actualiza las posiciones y limpia balas inactivas o fuera de la pantalla
+        public void Update(float deltaTime, float screenWidth)
         {
-            for (int i = 0; i < pool.Count; i++)
+            // Balas del jugador
+            for (int i = activePlayerBullets.Count - 1; i >= 0; i--)
             {
-                var b = pool[i];
-                if (!b.IsActive) continue;
+                var b = activePlayerBullets[i];
                 b.Update(deltaTime);
-                if (b.posX > maxX)
-                    b.Deactivate();
-            }
-        }
 
-        // Dibuja únicamente las balas que están activas.
-        // scaleX/scaleY controlan el tamaño con el que se renderiza el sprite.
-        public void Render(float scaleX = 0.05f, float scaleY = 0.08f)
-        {
-            for (int i = 0; i < pool.Count; i++)
-            {
-                var b = pool[i];
-                if (b.IsActive)
-                    b.Render(scaleX, scaleY);
-            }
-        }
-
-        // Colisión bala vs un solo asteroide.
-        // Si una bala impacta:
-        // - la bala se desactiva (vuelve al pool)
-        // - el asteroide entra en destrucción (animación de explosión)
-        // Devuelve true si hubo hit.
-        public bool TryHitAsteroid(Asteroid asteroid)
-        {
-            if (asteroid == null || !asteroid.IsAlive || asteroid.IsDestroying) return false;
-            RectangleF asteroidCollider = asteroid.GetCollider();
-
-            for (int i = 0; i < pool.Count; i++)
-            {
-                var b = pool[i];
-                if (!b.IsActive) continue;
-
-                if (IsBoxColliding(b.GetCollider(), asteroidCollider))
+                if (b.posX > screenWidth)
                 {
                     b.Deactivate();
-                    asteroid.Destroy();
-                    return true;
+                    activePlayerBullets.RemoveAt(i);
+                }
+                else if (!b.IsActive)
+                {
+                    activePlayerBullets.RemoveAt(i);
                 }
             }
 
-            return false;
+            // Balas de enemigos
+            for (int i = activeEnemyBullets.Count - 1; i >= 0; i--)
+            {
+                var b = activeEnemyBullets[i];
+                b.Update(deltaTime);
+
+                // Si se sale de la pantalla por la izquierda (despawn)
+                if (b.posX < -100f)
+                {
+                    b.Deactivate();
+                    activeEnemyBullets.RemoveAt(i);
+                }
+                else if (!b.IsActive)
+                {
+                    activeEnemyBullets.RemoveAt(i);
+                }
+            }
         }
 
-        // Colisión bala vs lista de asteroides.
-        // Recorre todas las balas activas y verifica colisión contra cada asteroide vivo/no-destruyéndose.
-        // Si detecta un hit, desactiva la bala, destruye el asteroide y termina (1 hit por frame por simplicidad).
-        public bool TryHitAsteroids(IReadOnlyList<Asteroid> asteroids)
+        // Renderiza las balas activas en pantalla
+        public void Render()
         {
-            if (asteroids == null || asteroids.Count == 0) return false;
-
-            for (int i = 0; i < pool.Count; i++)
+            for (int i = 0; i < activePlayerBullets.Count; i++)
             {
-                var b = pool[i];
-                if (!b.IsActive) continue;
+                activePlayerBullets[i].Render(0.05f, 0.08f);
+            }
 
+            for (int i = 0; i < activeEnemyBullets.Count; i++)
+            {
+                activeEnemyBullets[i].Render(0.05f, 0.08f);
+            }
+        }
+
+        // Colisión bala jugador vs lista de enemigos
+        public bool TryHitEnemies(IReadOnlyList<EnemyEntity> enemies)
+        {
+            if (enemies == null || enemies.Count == 0) return false;
+
+            for (int i = activePlayerBullets.Count - 1; i >= 0; i--)
+            {
+                var b = activePlayerBullets[i];
                 RectangleF bulletCollider = b.GetCollider();
 
-                for (int j = 0; j < asteroids.Count; j++)
+                for (int j = 0; j < enemies.Count; j++)
                 {
-                    var a = asteroids[j];
-                    if (a == null || !a.IsAlive || a.IsDestroying) continue;
+                    var e = enemies[j];
+                    if (e == null || !e.IsAlive || e.IsDestroying) continue;
 
-                    if (IsBoxColliding(bulletCollider, a.GetCollider()))
+                    if (IsBoxColliding(bulletCollider, e.GetCollider()))
                     {
                         b.Deactivate();
-                        a.Destroy();
+                        activePlayerBullets.RemoveAt(i);
+
+                        e.TakeDamage(b.Dano);
                         return true;
                     }
                 }
@@ -139,7 +154,27 @@ namespace EngineGDI
             return false;
         }
 
-        // Colisión AABB (Axis-Aligned Bounding Box) para rectángulos sin rotación.
+        // Colisión bala enemiga vs jugador
+        public bool TryHitPlayer(Player player)
+        {
+            if (player == null) return false;
+            RectangleF playerCollider = player.GetCollider();
+            if (playerCollider.IsEmpty) return false;
+
+            for (int i = activeEnemyBullets.Count - 1; i >= 0; i--)
+            {
+                var b = activeEnemyBullets[i];
+                if (IsBoxColliding(b.GetCollider(), playerCollider))
+                {
+                    b.Deactivate();
+                    activeEnemyBullets.RemoveAt(i);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private bool IsBoxColliding(RectangleF a, RectangleF b)
         {
             return a.Left < b.Right &&

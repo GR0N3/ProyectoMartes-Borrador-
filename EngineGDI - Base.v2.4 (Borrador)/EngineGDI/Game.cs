@@ -1,10 +1,11 @@
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace EngineGDI
 {
     // Escena principal del juego.
-    // Maneja: player, balas, asteroides, fondo y HUD; además controla pausa y game over.
+    // Maneja: player, balas, enemigos, fondo y HUD; además controla pausa y game over.
     internal class Game : IScene
     {
         private readonly int screenWidth;
@@ -13,7 +14,7 @@ namespace EngineGDI
         private Player player;
         private BulletPool bulletPool;
         private BackgroundManager backgroundManager;
-        private AsteroidPool asteroidPool;
+        private EnemyPool enemyPool;
         private UIManager uiManager;
 
         private PauseController pauseController;
@@ -35,13 +36,30 @@ namespace EngineGDI
             player = new Player("Textures/Player/Player.png", 20, screenHeight / 2f, 200f);
             CenterPlayerInPlayableArea();
 
-            bulletPool = new BulletPool("Textures/Objects/Bala/Bullet.png", 10, 500f);
+            // Pool unificado de balas (Jugador y Enemigos)
+            bulletPool = new BulletPool(
+                playerSprite: "Textures/Objects/Bala/Bullet.png",
+                enemySprite: "Textures/Objects/Bala/Bullet.png",
+                poolSize: 15,
+                playerSpeed: 500f,
+                enemySpeed: 300f
+            );
+
+            player.BindShooting((x, y) => bulletPool.TrySpawn(BulletType.Player, x, y));
+            player.OnLifeLost += HandlePlayerLifeLost;
+
             backgroundManager = new BackgroundManager(screenWidth);
-            asteroidPool = AsteroidSpawner.CrearPoolCon5Spawners(
+
+            // Pool unificado de enemigos (Asteroides y Naves Enemigas)
+            enemyPool = EnemyPool.CrearPoolCon5Spawners(
                 anchoPantalla: screenWidth,
                 altoPantalla: screenHeight,
                 spriteAsteroide: "Textures/Objects/Asteroide/Asteroid_idle.png",
-                yMin: uiManager.HudHeight + 10f);
+                spriteNave: "Textures/Enemy/NaveEnemiga.png",
+                onEnemyShoot: (x, y) => bulletPool.TrySpawn(BulletType.Enemy, x, y),
+                onEnemyDestroyed: HandleEnemyDestroyed,
+                yMin: uiManager.HudHeight + 10f
+            );
 
             // Música del gameplay: se reproduce en loop mientras esta escena esté activa.
             AudioManager.Instance.PlayGameMusic();
@@ -77,10 +95,7 @@ namespace EngineGDI
             tiempoUltimoDisparo -= Program.deltaTime;
             if (Engine.IsKeyDown(Keys.Space) && tiempoUltimoDisparo <= 0f)
             {
-                float spawnX = player.posX + 100f;
-                float spawnY = player.posY + 10f;
-                bulletPool.TrySpawn(spawnX, spawnY);
-                // Feedback al disparar: efecto de láser.
+                player.Shoot();
                 AudioManager.Instance.PlayLaserEffect();
                 tiempoUltimoDisparo = cadencia;
             }
@@ -109,28 +124,39 @@ namespace EngineGDI
             backgroundManager.Update(gameDeltaTime);
             player.Update(gameDeltaTime, uiManager.HudHeight, screenHeight);
             bulletPool.Update(gameDeltaTime, screenWidth);
-            asteroidPool.Update(gameDeltaTime);
+            enemyPool.Update(gameDeltaTime);
 
-            if (bulletPool.TryHitAsteroids(asteroidPool.Asteroids))
-            {
-                // Cuando una bala impacta un asteroide, reproducimos el SFX de hit.
-                AudioManager.Instance.PlayHitEffect();
-                uiManager.AddScore(100);
-            }
+            // Colisión: Balas del jugador vs enemigos
+            bulletPool.TryHitEnemies(enemyPool.Enemies);
 
-            var collidingAsteroid = GetCollidingAsteroid();
-            if (collidingAsteroid != null)
+            // Colisión: Balas enemigas vs jugador
+            if (bulletPool.TryHitPlayer(player))
             {
-                collidingAsteroid.Deactivate();
                 player.DisableCollider(0.5f);
-
-                if (player.TryTakeDamage(0.5f))
-                {
-                    uiManager.RemoveLife(1);
-                    if (uiManager.Lives <= 0)
-                        TriggerGameOver();
-                }
+                player.TakeDamage(1f);
             }
+
+            // Colisión física: Enemigo vs jugador
+            var collidingEnemy = GetCollidingEnemy();
+            if (collidingEnemy != null)
+            {
+                collidingEnemy.Deactivate();
+                player.DisableCollider(0.5f);
+                player.TakeDamage(collidingEnemy.Dano);
+            }
+        }
+
+        private void HandlePlayerLifeLost(int livesLost)
+        {
+            uiManager.RemoveLife(livesLost);
+            if (uiManager.Lives <= 0)
+                TriggerGameOver();
+        }
+
+        private void HandleEnemyDestroyed(EnemyEntity enemy)
+        {
+            AudioManager.Instance.PlayHitEffect();
+            uiManager.AddScore(100);
         }
 
         // Renderiza el juego y, si corresponde, el overlay de pausa o game over.
@@ -139,7 +165,7 @@ namespace EngineGDI
             backgroundManager.Render();
             if (!isGameOver)
                 player.Render();
-            asteroidPool.Render();
+            enemyPool.Render();
             bulletPool.Render();
             uiManager.Render();
 
@@ -189,19 +215,19 @@ namespace EngineGDI
             gameOverController = new GameOverController(screenWidth, screenHeight);
         }
 
-        // Devuelve el primer asteroide con el que el player está colisionando (AABB), o null si no hay colisión.
-        private Asteroid GetCollidingAsteroid()
+        // Devuelve el primer enemigo con el que el player está colisionando (AABB), o null si no hay colisión.
+        private EnemyEntity GetCollidingEnemy()
         {
             RectangleF playerCollider = player.GetCollider();
             if (playerCollider.IsEmpty) return null;
 
-            var asteroids = asteroidPool.Asteroids;
-            for (int i = 0; i < asteroids.Count; i++)
+            var enemies = enemyPool.Enemies;
+            for (int i = 0; i < enemies.Count; i++)
             {
-                var a = asteroids[i];
-                if (a == null || !a.IsAlive || a.IsDestroying) continue;
-                if (IsBoxColliding(playerCollider, a.GetCollider()))
-                    return a;
+                var e = enemies[i];
+                if (e == null || !e.IsAlive || e.IsDestroying) continue;
+                if (IsBoxColliding(playerCollider, e.GetCollider()))
+                    return e;
             }
 
             return null;
