@@ -157,6 +157,7 @@ namespace EngineGDI
         {
             AudioManager.Instance.PlayHitEffect();
             uiManager.AddScore(100);
+            GameManager.Instance.TryUpdateHighScore(uiManager.Score);
         }
 
         // Renderiza el juego y, si corresponde, el overlay de pausa o game over.

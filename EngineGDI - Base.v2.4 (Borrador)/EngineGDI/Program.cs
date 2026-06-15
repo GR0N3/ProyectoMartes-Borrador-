@@ -37,6 +37,8 @@ namespace EngineGDI
             // Carga una fuente desde archivo para los textos de UI.
             Engine.SetUIFontFromFile("Fonts/pixel_lcd_7.ttf", FontStyle.Regular);
 
+            GameManager.Instance.Initialize(SCREEN_WIDTH, SCREEN_HEIGHT);
+
             // Comienza en el menú principal.
             SceneManager.Instance.ChangeScene(new MainMenu(SCREEN_WIDTH, SCREEN_HEIGHT));
 
@@ -81,6 +83,7 @@ namespace EngineGDI
 
             deltaTime = (float)frameSeconds;
             lastFrameTimeSeconds = nowSeconds;
+            GameManager.Instance.SetDeltaTime(deltaTime);
         }
 
         static void LimitTo60Fps()

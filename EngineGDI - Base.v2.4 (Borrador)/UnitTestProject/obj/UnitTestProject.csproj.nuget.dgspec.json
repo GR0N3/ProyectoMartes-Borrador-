@@ -1,0 +1,96 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\UnitTestProject\\UnitTestProject.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\EngineGDI.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\EngineGDI.csproj",
+        "projectName": "EngineGDI",
+        "projectPath": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\EngineGDI.csproj",
+        "UsingMicrosoftNETSdk": false,
+        "frameworks": {
+          "net48": {
+            "framework": "net48",
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net48": {
+          "framework": "net48"
+        }
+      }
+    },
+    "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\UnitTestProject\\UnitTestProject.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\UnitTestProject\\UnitTestProject.csproj",
+        "projectName": "UnitTestProject",
+        "projectPath": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\UnitTestProject\\UnitTestProject.csproj",
+        "packagesPath": "C:\\Users\\Ezequiel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\UnitTestProject\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Ezequiel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net48"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "framework": "net48",
+            "targetAlias": "net48",
+            "projectReferences": {
+              "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\EngineGDI.csproj": {
+                "projectPath": "C:\\Users\\Ezequiel\\OneDrive\\Escritorio\\EngineGDI - Base.v2.4\\EngineGDI\\EngineGDI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.300"
+      },
+      "frameworks": {
+        "net48": {
+          "framework": "net48",
+          "targetAlias": "net48",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.14.1, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[6.0.4, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.9.3, )"
+            },
+            "xunit.runner.visualstudio": {
+              "target": "Package",
+              "version": "[3.1.4, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

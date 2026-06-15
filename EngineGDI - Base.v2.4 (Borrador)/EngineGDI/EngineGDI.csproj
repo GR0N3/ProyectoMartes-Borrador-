@@ -68,6 +68,7 @@
     <Compile Include="BulletPool.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="GameManager.cs" />
     <Compile Include="GameOverController.cs" />
     <Compile Include="IScene.cs" />
     <Compile Include="MainMenu.cs" />
