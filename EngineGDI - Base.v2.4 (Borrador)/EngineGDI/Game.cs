@@ -55,10 +55,13 @@ namespace EngineGDI
                 anchoPantalla: screenWidth,
                 altoPantalla: screenHeight,
                 spriteAsteroide: "Textures/Objects/Asteroide/Asteroid_idle.png",
-                spriteNave: "Textures/Enemy/NaveEnemiga.png",
-                onEnemyShoot: (x, y) => bulletPool.TrySpawn(BulletType.Enemy, x, y),
+                spriteNaveRoja: "Textures/Enemies/RedEnemy.png",
+                spriteNaveAzul: "Textures/Enemies/BlueEnemy.png",
+                onEnemyShoot: (x, y, bulletType) => bulletPool.TrySpawn(bulletType, x, y),
                 onEnemyDestroyed: HandleEnemyDestroyed,
-                yMin: uiManager.HudHeight + 10f
+                yMin: uiManager.HudHeight + 10f,
+                asteroidScaleMin: 0.06f,
+                asteroidScaleMax: 0.10f
             );
 
             // Música del gameplay: se reproduce en loop mientras esta escena esté activa.

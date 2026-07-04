@@ -15,13 +15,27 @@ namespace EngineGDI
         private readonly float toleranciaLineaY;
         
         private readonly string spriteAsteroide;
-        private readonly string spriteNave;
-        private readonly Action<float, float> onEnemyShoot;
+        private readonly string spriteNaveRoja;
+        private readonly string spriteNaveAzul;
+        private readonly Action<float, float, BulletType> onEnemyShoot;
         private readonly Action<EnemyEntity> onEnemyDestroyed;
+        private readonly float asteroidScaleMin;
+        private readonly float asteroidScaleMax;
 
         public IReadOnlyList<EnemyEntity> Enemies => activeEnemies;
 
-        public EnemyPool(int capacity, int targetFlying, string spriteAsteroide, string spriteNave, EnemySpawner[] spawners, Action<float, float> onEnemyShoot, Action<EnemyEntity> onEnemyDestroyed = null, float despawnX = -50f)
+        public EnemyPool(
+            int capacity,
+            int targetFlying,
+            string spriteAsteroide,
+            string spriteNaveRoja,
+            string spriteNaveAzul,
+            EnemySpawner[] spawners,
+            Action<float, float, BulletType> onEnemyShoot,
+            Action<EnemyEntity> onEnemyDestroyed = null,
+            float despawnX = -50f,
+            float asteroidScaleMin = 0.08f,
+            float asteroidScaleMax = 0.14f)
         {
             limiteDespawnX = despawnX;
             this.spawners = spawners;
@@ -30,9 +44,12 @@ namespace EngineGDI
             this.distanciaMinimaSpawnX = 150f;
             this.toleranciaLineaY = 1.0f;
             this.spriteAsteroide = spriteAsteroide;
-            this.spriteNave = spriteNave;
+            this.spriteNaveRoja = spriteNaveRoja;
+            this.spriteNaveAzul = spriteNaveAzul;
             this.onEnemyShoot = onEnemyShoot;
             this.onEnemyDestroyed = onEnemyDestroyed;
+            this.asteroidScaleMin = asteroidScaleMin;
+            this.asteroidScaleMax = asteroidScaleMax;
 
             activeEnemies = new List<EnemyEntity>();
             pools = new Dictionary<EnemyType, ObjectPool<EnemyEntity>>();
@@ -45,9 +62,16 @@ namespace EngineGDI
                 e => e.Deactivate()
             );
 
-            pools[EnemyType.NaveEnemiga] = new ObjectPool<EnemyEntity>(
+            pools[EnemyType.NaveEnemigaRoja] = new ObjectPool<EnemyEntity>(
                 capacity,
-                () => CreatePooledEnemy(EnemyType.NaveEnemiga),
+                () => CreatePooledEnemy(EnemyType.NaveEnemigaRoja),
+                e => e.IsAlive,
+                e => e.Deactivate()
+            );
+
+            pools[EnemyType.NaveEnemigaAzul] = new ObjectPool<EnemyEntity>(
+                capacity,
+                () => CreatePooledEnemy(EnemyType.NaveEnemigaAzul),
                 e => e.IsAlive,
                 e => e.Deactivate()
             );
@@ -57,8 +81,8 @@ namespace EngineGDI
 
         private EnemyEntity CreatePooledEnemy(EnemyType type)
         {
-            string sprite = type == EnemyType.Asteroid ? spriteAsteroide : spriteNave;
-            Action<float, float> shootCallback = type == EnemyType.NaveEnemiga ? onEnemyShoot : null;
+            string sprite = GetSpriteForType(type);
+            Action<float, float, BulletType> shootCallback = type == EnemyType.Asteroid ? null : onEnemyShoot;
             var enemy = EnemyFactory.CreateEnemy(type, sprite, 0f, 0f, 0f, shootCallback);
 
             if (onEnemyDestroyed != null)
@@ -116,8 +140,7 @@ namespace EngineGDI
                 var spawner = ElegirSpawnerDisponible();
                 if (spawner == null) break;
 
-                // 60% Asteroides, 40% Naves Enemigas
-                EnemyType tipoElegido = random.NextDouble() < 0.60 ? EnemyType.Asteroid : EnemyType.NaveEnemiga;
+                EnemyType tipoElegido = ElegirTipoEnemigo();
 
                 var enemigo = GetEnemigoDisponible(tipoElegido);
                 if (!spawner.TrySpawn(enemigo, random))
@@ -125,6 +148,9 @@ namespace EngineGDI
                     enemigo.Deactivate();
                     break;
                 }
+
+                if (enemigo is Asteroid asteroid)
+                    asteroid.SetUniformScale(GetRandomAsteroidScale());
 
                 activeEnemies.Add(enemigo);
             }
@@ -177,8 +203,9 @@ namespace EngineGDI
             int anchoPantalla,
             int altoPantalla,
             string spriteAsteroide,
-            string spriteNave,
-            Action<float, float> onEnemyShoot,
+            string spriteNaveRoja,
+            string spriteNaveAzul,
+            Action<float, float, BulletType> onEnemyShoot,
             Action<EnemyEntity> onEnemyDestroyed = null,
             int cantidadEnPool = 8,
             int enemigosSimultaneos = 5,
@@ -188,7 +215,9 @@ namespace EngineGDI
             float despawnX = -100f,
             float yMin = 50f,
             float yMaxOffset = 200f,
-            float cooldownSpawner = 0.8f)
+            float cooldownSpawner = 0.8f,
+            float asteroidScaleMin = 0.08f,
+            float asteroidScaleMax = 0.14f)
         {
             float yMax = altoPantalla - yMaxOffset;
 
@@ -204,11 +233,45 @@ namespace EngineGDI
                 capacity: cantidadEnPool,
                 targetFlying: enemigosSimultaneos,
                 spriteAsteroide: spriteAsteroide,
-                spriteNave: spriteNave,
+                spriteNaveRoja: spriteNaveRoja,
+                spriteNaveAzul: spriteNaveAzul,
                 spawners: spawners,
                 onEnemyShoot: onEnemyShoot,
                 onEnemyDestroyed: onEnemyDestroyed,
-                despawnX: despawnX);
+                despawnX: despawnX,
+                asteroidScaleMin: asteroidScaleMin,
+                asteroidScaleMax: asteroidScaleMax);
+        }
+
+        private string GetSpriteForType(EnemyType type)
+        {
+            switch (type)
+            {
+                case EnemyType.Asteroid:
+                    return spriteAsteroide;
+                case EnemyType.NaveEnemigaRoja:
+                    return spriteNaveRoja;
+                case EnemyType.NaveEnemigaAzul:
+                    return spriteNaveAzul;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+            }
+        }
+
+        private EnemyType ElegirTipoEnemigo()
+        {
+            double roll = random.NextDouble();
+            if (roll < 0.60)
+                return EnemyType.Asteroid;
+            if (roll < 0.80)
+                return EnemyType.NaveEnemigaRoja;
+
+            return EnemyType.NaveEnemigaAzul;
+        }
+
+        private float GetRandomAsteroidScale()
+        {
+            return asteroidScaleMin + ((asteroidScaleMax - asteroidScaleMin) * (float)random.NextDouble());
         }
     }
 }

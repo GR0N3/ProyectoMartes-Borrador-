@@ -3,6 +3,7 @@ namespace EngineGDI
     public enum EnemyType
     {
         Asteroid,
-        NaveEnemiga
+        NaveEnemigaRoja,
+        NaveEnemigaAzul
     }
 }

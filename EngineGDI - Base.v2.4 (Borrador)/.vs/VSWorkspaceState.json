@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\EngineGDI",
+    "\\EngineGDI\\Textures",
+    "\\EngineGDI\\Textures\\Anims",
+    "\\EngineGDI\\Textures\\Anims\\AsteroidDestroy",
+    "\\EngineGDI\\Textures\\Anims\\EnemyDestroy",
+    "\\EngineGDI\\Textures\\Enemies"
+  ],
+  "SelectedNode": "\\EngineGDI\\Textures\\Anims\\EnemyDestroy\\00.png",
+  "PreviewInSolutionExplorer": false
+}

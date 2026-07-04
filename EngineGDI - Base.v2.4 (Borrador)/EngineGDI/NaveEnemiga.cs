@@ -14,6 +14,9 @@ namespace EngineGDI
         private float shootTimer = 0f;
         private float timeElapsed = 0f;
         private float initialY = 0f;
+        private readonly string explosionFrameA;
+        private readonly string explosionFrameB;
+        private readonly BulletType bulletType;
 
         public override float posX
         {
@@ -38,9 +41,9 @@ namespace EngineGDI
         public override bool IsAlive => isAlive;
 
         // Callback para disparar proyectiles
-        public Action<float, float> OnShoot;
+        public Action<float, float, BulletType> OnShoot;
 
-        public NaveEnemiga(string sprite, float posX, float posY, float velX)
+        public NaveEnemiga(string sprite, string explosionFrameA, string explosionFrameB, BulletType bulletType, float posX, float posY, float velX)
         {
             this.Vida = 1f; // Soporta 1 impacto de bala
             this.Dano = 1f;  // Quita 1 de vida al chocar
@@ -48,6 +51,9 @@ namespace EngineGDI
             this.AudioDeathPath = "Sounds/Hit_Effect.wav"; // SFX de explosión/hit
 
             this.sprite = sprite;
+            this.explosionFrameA = explosionFrameA;
+            this.explosionFrameB = explosionFrameB;
+            this.bulletType = bulletType;
             this.velX = velX;
             this.initialY = posY;
 
@@ -68,8 +74,8 @@ namespace EngineGDI
 
             var explosionFrames = new List<string>
             {
-                "Textures/Anims/EnemyDestroy/0.png",
-                "Textures/Anims/EnemyDestroy/1.png"
+                explosionFrameA,
+                explosionFrameB
             };
             explosion = new Animation("explosion", explosionFrames, 0.15f, false);
         }
@@ -92,7 +98,7 @@ namespace EngineGDI
                 {
                     shootTimer = 0f;
                     // Dispara desde el centro del frente izquierdo de la nave enemiga
-                    OnShoot?.Invoke(posX, posY + (SpriteSize.Y * Transform.Scale.Y) / 2f);
+                    OnShoot?.Invoke(posX, posY + (SpriteSize.Y * Transform.Scale.Y) / 2f, bulletType);
                 }
             }
             else

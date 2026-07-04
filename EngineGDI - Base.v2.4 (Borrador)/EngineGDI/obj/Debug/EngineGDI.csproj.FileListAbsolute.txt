@@ -298,6 +298,9 @@ C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\
 C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Sounds\Laser_Effect.wav
 C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Sounds\Micrology.wav
 C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Sounds\Rivals8Bit.wav
-C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Enemy\NaveEnemiga.png
-C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Anims\EnemyDestroy\0.png
-C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Anims\EnemyDestroy\1.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Anims\EnemyDestroy\00.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Anims\EnemyDestroy\01.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Anims\EnemyDestroy\10.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Anims\EnemyDestroy\11.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Enemies\RedEnemy.png
+C:\Users\Ezequiel\OneDrive\Escritorio\EngineGDI - Base.v2.4\EngineGDI\bin\Debug\Textures\Enemies\BlueEnemy.png

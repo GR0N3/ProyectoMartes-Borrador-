@@ -100,7 +100,9 @@ namespace EngineGDI
         // Dibuja el frame actual de la animación en la posición del Transform.
         public override void Render(float scaleX = 0.05f, float scaleY = 0.05f)
         {
-            DrawWithRenderer(currentAnimation.currentFrame, scaleX, scaleY, Transform.Rotation.X);
+            float renderScaleX = Transform.Scale.X > 0f ? Transform.Scale.X : scaleX;
+            float renderScaleY = Transform.Scale.Y > 0f ? Transform.Scale.Y : scaleY;
+            DrawWithRenderer(currentAnimation.currentFrame, renderScaleX, renderScaleY, Transform.Rotation.X);
         }
 
         // Inicia la destrucción:
@@ -155,6 +157,11 @@ namespace EngineGDI
                 Transform.Position.Y,
                 width,
                 height);
+        }
+
+        public void SetUniformScale(float scale)
+        {
+            Transform.Scale = new Vector2(scale, scale);
         }
     }
 }
