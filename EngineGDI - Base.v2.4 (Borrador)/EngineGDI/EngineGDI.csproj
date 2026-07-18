@@ -63,6 +63,8 @@
     <Compile Include="BulletEntity.cs" />
     <Compile Include="PlayerBullet.cs" />
     <Compile Include="EnemyBullet.cs" />
+    <Compile Include="NormalBullet.cs" />
+    <Compile Include="AngularBullet.cs" />
     <Compile Include="AudioManager.cs" />
     <Compile Include="BackgroundManager.cs" />
     <Compile Include="BulletPool.cs" />
@@ -155,13 +157,22 @@
     <Content Include="Textures\Anims\AsteroidDestroy\5.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Textures\Anims\EnemyDestroy\0.png">
+    <Content Include="Textures\Anims\EnemyDestroy\00.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Textures\Anims\EnemyDestroy\1.png">
+    <Content Include="Textures\Anims\EnemyDestroy\01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\Anims\EnemyDestroy\10.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\Anims\EnemyDestroy\11.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\BackGrounds\Background.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\BackGrounds\BackGround2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\BackGrounds\Fondo.png">
@@ -170,7 +181,10 @@
     <Content Include="Textures\BackGrounds\Estrellas.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Textures\Enemy\NaveEnemiga.png">
+    <Content Include="Textures\Enemies\RedEnemy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\Enemies\BlueEnemy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\UI\GameOver\GameOverTable.png">

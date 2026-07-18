@@ -1,8 +1,10 @@
 namespace EngineGDI
 {
-    public class EnemyBullet : BulletEntity
+    public abstract class EnemyBullet : BulletEntity
     {
-        public EnemyBullet(string sprite, float posX, float posY, float speed)
+        protected float renderAngle = 180f;
+
+        protected EnemyBullet(string sprite, float posX, float posY, float speed)
         {
             this.Sprite = sprite;
             this.Velocidad = speed;
@@ -12,18 +14,25 @@ namespace EngineGDI
             this.IsActive = true;
         }
 
-        public override void Update(float deltaTime)
-        {
-            if (!IsActive) return;
-            // Movimiento hacia la izquierda
-            posX -= Velocidad * deltaTime;
-        }
-
         public override void Render(float scaleX = 0.05f, float scaleY = 0.08f)
         {
             EnsureRenderer();
             Transform.Scale = new Vector2(scaleX, scaleY);
-            renderer.Draw(Transform, 180f, 0.5f, 0.5f);
+            renderer.Draw(Transform, renderAngle, 0.5f, 0.5f);
+        }
+
+        protected static Vector2 Normalize(Vector2 vector)
+        {
+            float length = (float)System.Math.Sqrt((vector.X * vector.X) + (vector.Y * vector.Y));
+            if (length <= 0f)
+                return new Vector2(-1f, 0f);
+
+            return new Vector2(vector.X / length, vector.Y / length);
+        }
+
+        protected static float GetAngleDegrees(Vector2 vector)
+        {
+            return (float)(System.Math.Atan2(vector.Y, vector.X) * (180.0 / System.Math.PI));
         }
     }
 }

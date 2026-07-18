@@ -7,7 +7,8 @@ namespace EngineGDI
     public enum BulletType
     {
         Player,
-        Enemy
+        NormalBullet,
+        AngularBullet
     }
 
     public class BulletPool
@@ -43,9 +44,16 @@ namespace EngineGDI
                 b => b.Deactivate()
             );
 
-            pools[BulletType.Enemy] = new ObjectPool<BulletEntity>(
+            pools[BulletType.NormalBullet] = new ObjectPool<BulletEntity>(
                 poolSize,
-                () => new EnemyBullet(enemySprite, 0f, 0f, 0f),
+                () => new NormalBullet(enemySprite, 0f, 0f, 0f),
+                b => b.IsActive,
+                b => b.Deactivate()
+            );
+
+            pools[BulletType.AngularBullet] = new ObjectPool<BulletEntity>(
+                poolSize,
+                () => new AngularBullet(enemySprite, 0f, 0f, 0f),
                 b => b.IsActive,
                 b => b.Deactivate()
             );
@@ -61,7 +69,7 @@ namespace EngineGDI
         public bool TrySpawn(BulletType type, float x, float y)
         {
             var b = GetBullet(type);
-            float speed = (type == BulletType.Player) ? playerBulletSpeed : enemyBulletSpeed;
+            float speed = type == BulletType.Player ? playerBulletSpeed : enemyBulletSpeed;
             b.Activate(x, y, speed);
 
             if (type == BulletType.Player)
@@ -98,8 +106,7 @@ namespace EngineGDI
                 var b = activeEnemyBullets[i];
                 b.Update(deltaTime);
 
-                // Si se sale de la pantalla por la izquierda (despawn)
-                if (b.posX < -100f)
+                if (IsOutsideEnemyBulletBounds(b, screenWidth))
                 {
                     b.Deactivate();
                     activeEnemyBullets.RemoveAt(i);
@@ -181,6 +188,14 @@ namespace EngineGDI
                    a.Right > b.Left &&
                    a.Top < b.Bottom &&
                    a.Bottom > b.Top;
+        }
+
+        private static bool IsOutsideEnemyBulletBounds(BulletEntity bullet, float screenWidth)
+        {
+            return bullet.posX < -100f ||
+                   bullet.posX > screenWidth + 100f ||
+                   bullet.posY < -100f ||
+                   bullet.posY > GameManager.Instance.ScreenHeight + 100f;
         }
     }
 }

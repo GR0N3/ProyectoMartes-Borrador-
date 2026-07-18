@@ -1,3 +1,4 @@
+using System;
 using System.Drawing;
 
 namespace EngineGDI
@@ -30,14 +31,17 @@ namespace EngineGDI
             float screenWidth,
             string blackRectSprite = "Textures/UI/HUD/Black_Rect.png",
             string blueRectSprite = "Textures/UI/HUD/Blue_Rect.png",
-            int maxLives = 10)
+            int maxLives = 10,
+            int initialLives = -1,
+            int initialScore = 0)
         {
             this.screenWidth = screenWidth;
             this.blackRectSprite = blackRectSprite;
             this.blueRectSprite = blueRectSprite;
             this.maxLives = maxLives;
-            Lives = maxLives;
-            Score = 0;
+            Lives = initialLives < 0 ? maxLives : Math.Min(initialLives, maxLives);
+            if (Lives < 0) Lives = 0;
+            Score = initialScore < 0 ? 0 : initialScore;
 
             using (var hudImg = Image.FromFile(blackRectSprite))
             {

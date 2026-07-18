@@ -8,8 +8,16 @@ namespace EngineGDI
     // Maneja: player, balas, enemigos, fondo y HUD; además controla pausa y game over.
     internal class Game : IScene
     {
+        private enum NivelJuego
+        {
+            Nivel1,
+            Nivel2
+        }
+
+        private const int PuntajeObjetivoNivel2 = 2500;
         private readonly int screenWidth;
         private readonly int screenHeight;
+        private readonly NivelJuego nivelActual;
 
         private Player player;
         private BulletPool bulletPool;
@@ -25,14 +33,21 @@ namespace EngineGDI
 
         private float cadencia = 0.3f;
         private float tiempoUltimoDisparo = 0f;
+        private bool shouldAdvanceToLevel2;
 
         // Construye la escena del juego e instancia los sistemas principales (player, pools, background, UI).
         public Game(int screenWidth, int screenHeight)
+            : this(screenWidth, screenHeight, NivelJuego.Nivel1, 10, 0)
+        {
+        }
+
+        private Game(int screenWidth, int screenHeight, NivelJuego nivelActual, int initialLives, int initialScore)
         {
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;
+            this.nivelActual = nivelActual;
 
-            uiManager = new UIManager(screenWidth);
+            uiManager = new UIManager(screenWidth, initialLives: initialLives, initialScore: initialScore);
             player = new Player("Textures/Player/Player.png", 20, screenHeight / 2f, 200f);
             CenterPlayerInPlayableArea();
 
@@ -48,17 +63,22 @@ namespace EngineGDI
             player.BindShooting((x, y) => bulletPool.TrySpawn(BulletType.Player, x, y));
             player.OnLifeLost += HandlePlayerLifeLost;
 
-            backgroundManager = new BackgroundManager(screenWidth);
+            backgroundManager = new BackgroundManager(screenWidth, fondoSprite: GetBackgroundSpriteForCurrentLevel());
 
             // Pool unificado de enemigos (Asteroides y Naves Enemigas)
             enemyPool = EnemyPool.CrearPoolCon5Spawners(
                 anchoPantalla: screenWidth,
                 altoPantalla: screenHeight,
                 spriteAsteroide: "Textures/Objects/Asteroide/Asteroid_idle.png",
-                spriteNave: "Textures/Enemy/NaveEnemiga.png",
-                onEnemyShoot: (x, y) => bulletPool.TrySpawn(BulletType.Enemy, x, y),
+                spriteNaveRoja: "Textures/Enemies/RedEnemy.png",
+                spriteNaveAzul: "Textures/Enemies/BlueEnemy.png",
+                onEnemyShoot: (x, y, bulletType) => bulletPool.TrySpawn(bulletType, x, y),
                 onEnemyDestroyed: HandleEnemyDestroyed,
-                yMin: uiManager.HudHeight + 10f
+                yMin: uiManager.HudHeight + 10f,
+                asteroidScaleMin: 0.06f,
+                asteroidScaleMax: 0.10f,
+                incluirNaveRoja: nivelActual == NivelJuego.Nivel1,
+                incluirNaveAzul: nivelActual == NivelJuego.Nivel2
             );
 
             // Música del gameplay: se reproduce en loop mientras esta escena esté activa.
@@ -87,6 +107,12 @@ namespace EngineGDI
             {
                 isPaused = true;
                 pauseController = new PauseController(screenWidth, screenHeight);
+                return;
+            }
+
+            if (CanAdvanceToLevel2() && IsLevel2ShortcutPressed())
+            {
+                shouldAdvanceToLevel2 = true;
                 return;
             }
 
@@ -121,6 +147,12 @@ namespace EngineGDI
                 return;
             }
 
+            if (shouldAdvanceToLevel2)
+            {
+                AdvanceToLevel2();
+                return;
+            }
+
             backgroundManager.Update(gameDeltaTime);
             player.Update(gameDeltaTime, uiManager.HudHeight, screenHeight);
             bulletPool.Update(gameDeltaTime, screenWidth);
@@ -144,6 +176,9 @@ namespace EngineGDI
                 player.DisableCollider(0.5f);
                 player.TakeDamage(collidingEnemy.Dano);
             }
+
+            if (shouldAdvanceToLevel2)
+                AdvanceToLevel2();
         }
 
         private void HandlePlayerLifeLost(int livesLost)
@@ -158,6 +193,9 @@ namespace EngineGDI
             AudioManager.Instance.PlayHitEffect();
             uiManager.AddScore(100);
             GameManager.Instance.TryUpdateHighScore(uiManager.Score);
+
+            if (CanAdvanceToLevel2() && uiManager.Score >= PuntajeObjetivoNivel2)
+                shouldAdvanceToLevel2 = true;
         }
 
         // Renderiza el juego y, si corresponde, el overlay de pausa o game over.
@@ -200,7 +238,7 @@ namespace EngineGDI
 
             if (gameOverController.RequestedAction == GameOverAction.Retry)
             {
-                SceneManager.Instance.ChangeScene(new Game(screenWidth, screenHeight));
+                SceneManager.Instance.ChangeScene(new Game(screenWidth, screenHeight, nivelActual, 10, 0));
             }
             else if (gameOverController.RequestedAction == GameOverAction.QuitToMainMenu)
             {
@@ -250,6 +288,33 @@ namespace EngineGDI
             float playerHeight = player.SpriteSize.Y * player.Transform.Scale.Y * player.ColliderScale.Y;
             float playableHeight = screenHeight - minY;
             player.posY = minY + (playableHeight - playerHeight) / 2f;
+        }
+
+        private bool CanAdvanceToLevel2()
+        {
+            return nivelActual == NivelJuego.Nivel1;
+        }
+
+        private void AdvanceToLevel2()
+        {
+            shouldAdvanceToLevel2 = false;
+            SceneManager.Instance.ChangeScene(new Game(screenWidth, screenHeight, NivelJuego.Nivel2, uiManager.Lives, uiManager.Score));
+        }
+
+        private bool IsLevel2ShortcutPressed()
+        {
+            bool controlDown = Engine.IsKeyDown(Keys.ControlKey) ||
+                               Engine.IsKeyDown(Keys.LControlKey) ||
+                               Engine.IsKeyDown(Keys.RControlKey);
+
+            return controlDown && Engine.OnKeyDown(Keys.F);
+        }
+
+        private string GetBackgroundSpriteForCurrentLevel()
+        {
+            return nivelActual == NivelJuego.Nivel2
+                ? "Textures/BackGrounds/BackGround2.png"
+                : "Textures/BackGrounds/Background.png";
         }
     }
 }
